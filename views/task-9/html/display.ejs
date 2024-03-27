@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/task-9/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  
+    <table id="customers">
+        <tr>
+         <th>fname _</th>
+         <th>lname ^</th>
+         <th>email $</th>
+         <th>gender }</th>
+         <th>bgroup {</th>
+         <th>address #</th>
+        </tr>
+     </table>
+
+     <form method="post" style="text-align: center;margin-top: 20px;">
+         <input name="clause" style="height: 40px;width: 700px;border:2px solid;">
+         <input class="btn" type="submit" value="Go">
+     </form>
+    <% if(error=='' || error==undefined || error==null) { %>
+        <div class="table">
+           
+            <table id="customers">
+               <tr>
+                <% for(key in keys) { %>
+                    <th><%= key %></th>
+                <% } %>
+               </tr>
+
+                <% for(result of results) { %>
+                    <tr>
+                        <% for(key in keys) { %>
+                            <td><%= result[key] %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+
+            </table>
+           
+        </div>
+    <% } else { %>
+        <%- include('../particals/error') %>
+    <% } %>
+    
+   
+    <script>
+        
+    </script>
+</body>
+</html>

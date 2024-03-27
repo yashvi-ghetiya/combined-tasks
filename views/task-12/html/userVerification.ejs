@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration Form</title>
+    <link href="/task-12/css/userVerification.css" rel="stylesheet">
+    <script src='/task-12/javascript/userverify.js' defer></script>
+    <script src='https://asbros.github.io/popup.js/popup.js' defer></script>
+    <script src="/task-12/javascript/fetchAPI_POST.js" defer></script>
+    <script src="/task-12/javascript/fetchAPI_GET.js" defer ></script>
+</head>
+
+<body>
+    <div class="main" id="main">
+        <h1>Yashvi Ghetiya<br>21 March 2024<br>24DEV038</h1>
+        <form id="userverify">
+            <h4>Enter the email address or contact information associated with your account and we'll send you link to reset your password.</h4>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" />
+
+            <h3 style="text-align: center;">OR</h3>
+
+            <label for="mobile">Contact:</label>
+            <input type="text" id="mobile" name="mobile" />
+
+            <div onclick="window.location.href='/dashboard/task-12/login'" style="display: flex;justify-content: center;"><h5>Already have an Account?<h5 class="singup">&nbsp;Login</h5></h5></div>
+            <p class="button" onclick='userVerification()'>Continue</p>
+            <div onclick="window.location.href='/dashboard/task-12/registration'" style="display: flex;justify-content: center;"><h5>Don't have an Account?<h5 class="singup">&nbsp;Sign Up</h5></h5></div>
+        </form>
+    </div>
+</body>
+</html>

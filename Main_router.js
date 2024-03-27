@@ -9,6 +9,8 @@ const task_7 = require("./routers/task-7");
 const task_8 = require("./routers/task-8");
 const task_9 = require("./routers/task-9");
 const task_10 = require("./routers/task-10");
+const task_11 = require("./routers/task-11");
+const task_12 = require("./routers/task-12");
 
 const routers = (app) => {
    task_1(app);
@@ -21,6 +23,8 @@ const routers = (app) => {
    task_8(app);
    task_9(app);
    task_10(app);
+   task_11(app);
+   task_12(app);
 }
 
 module.exports = routers;

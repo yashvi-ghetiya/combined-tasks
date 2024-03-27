@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,td {
+            border: 1px solid;
+        }
+        td{
+            width:50px;
+            height:50px;
+        }
+        .bg1
+        {
+            background-color: black;
+        }
+        body
+        {
+            align:center;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <h1>
+        YASHVI GHETIYA
+        24DEV038
+    </h1>
+    <form>
+        <input type="button" value="add row" name="addrow" onclick="onaddrowfunction()">
+    </form>
+    <form>
+        <input type="button" value="sub row" name="subrow" onclick="onsubrowfunction()">
+    </form>
+    <form>
+        <input type="button" value="add col" name="addcol" onclick="onaddcolfunction()">
+    </form>
+    <form>
+        <input type="button" value="sub col" name="subcol" onclick="onsubcolfunction()">
+    </form>
+    <br>
+    <br>
+    <table id="table1" class="center">
+        <tr>
+            <td class="bg1">
+            </td>
+            <td>
+            </td>
+        </tr>   
+        <tr>
+            <td>
+            </td>
+            <td class="bg1">
+            </td>
+        </tr>   
+    </table>
+    <script>
+        
+        function onaddcolfunction()
+        {
+           let trs =document.querySelectorAll("#table1 tr");
+           let cols = document.getElementById('table1').rows[0].cells.length;
+           var rows= document.getElementById("table1").rows.length;
+           var r=0;
+           for(let tr of trs)
+           {
+                let td=document.createElement("td");
+                
+                if(cols%2==0 && r%2==0)
+                {
+                    td.style.backgroundColor="black";
+                }
+                if(cols%2!=0 && r%2!=0)
+                {
+                    td.style.backgroundColor="black";
+                }
+                r++;  
+                tr.appendChild(td);   
+           }
+        }
+        function onaddrowfunction()
+        {
+            let table = document.querySelector('#table1');
+
+            let tr = document.createElement('tr');
+            let cols = document.getElementById('table1').rows[0].cells.length;
+            var rows= document.getElementById("table1").rows.length;
+
+            for (let i = 1; i <= cols; i++) {
+                let td = document.createElement('td');
+
+                if((i%2!=0 && rows%2==0)||(i%2==0 && rows%2!=0))
+                {
+                    td.style.backgroundColor="black";
+                }
+                tr.appendChild(td);
+            }
+
+            table.appendChild(tr);
+        }
+        function onsubcolfunction()
+        {
+            var table = document.getElementById("table1");
+            var rowCount = table.rows.length;
+            let cols = document.getElementById('table1').rows[0].cells.length;
+        
+            if(cols>=3)
+            {
+                for (var i = 0; i < rowCount; i++) {
+                  
+                table.rows[i].deleteCell(cols-1);
+
+                }
+            }
+            
+        }
+        function onsubrowfunction()
+        {
+            var x = document.getElementById("table1").rows.length;
+
+            if(x>2)
+            {
+                document.getElementById("table1").deleteRow(x-1);
+            }            
+        }
+    </script>
+</body>
+</html>

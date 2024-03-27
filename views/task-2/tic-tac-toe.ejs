@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: #FAEBD7;
+            align:center;
+        }
+
+
+       .User1,.User2{
+        width: 8%;
+       color: #ffffcc;
+        text-shadow: 0 0 5px black,
+            0 0 10px black,
+            0 0 20px black,
+            0 0 30px black,
+            0 0 40px black,
+            0 0 55px black,
+            0 0 70px black;
+        font-size: x-large;
+       }
+
+       .User1{
+        border: 1.5mm ridge rgba(11, 12, 0, 0.962);
+       }
+
+       .name{
+        width: 20%;
+        border: 4mm ridge rgba(211, 220, 50, .6);
+       }
+
+        td{
+            width:120px;
+            height:120px;
+            border-radius: 10px;
+            background: black;
+            text-align: center;
+            font-size: xx-large;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <center>
+       
+    <h1 class="name">
+        YASHVI GHETIYA<br>
+        24DEV038<br>
+        02-02-2024<br>
+        TIC TAC TOE
+        
+    </h1>
+    <div class="User1" id="User1">User1 : X </div>
+    <br>
+    <div class="User2" id="User2">User2 : 0</div>
+    <br>
+    <br>
+    <div id="Timer"></div>
+    <h1 id="score"></h1>
+    <br>
+    
+        <div id="game">
+            <table id="table1" >
+                <tr>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="0">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="1">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="2">
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="3">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="4">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="5">
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="6">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="7">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="8">
+                    </td>
+                </tr> 
+                
+            </table>
+        </div>
+    </center>
+    <script>
+        var gamer=1;
+        var count=0;
+      
+        let matrix =[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        function updatematrix(user,id)
+        {
+            if(id==0)
+            {
+                matrix[0][0]=user;
+                matrix[3][0]=user;
+                matrix[6][0]=user;
+            }
+            if(id==1)
+            {
+                matrix[0][1]=user;
+                matrix[4][0]=user;
+            }
+            if(id==2)
+            {
+                matrix[0][2]=user;
+                matrix[5][0]=user;
+                matrix[7][0]=user;
+            }
+            if(id==3)
+            {
+                matrix[1][0]=user;
+                matrix[3][1]=user;
+            }
+            if(id==4)
+            {
+                matrix[1][1]=user;
+                matrix[6][1]=user;
+                matrix[7][1]=user;
+                matrix[4][1]=user;
+            }
+            if(id==5)
+            {
+                matrix[1][2]=user;
+                matrix[5][1]=user;
+            }
+            if(id==6)
+            {
+                matrix[2][0]=user;
+                matrix[3][2]=user;
+                matrix[7][2]=user;
+            }
+            if(id==7)
+            {
+                matrix[2][1]=user;
+                matrix[4][2]=user;
+            }
+            if(id==8)
+            {
+                matrix[2][2]=user;
+                matrix[5][2]=user;
+                matrix[6][2]=user;
+            }
+        }
+        
+        function checkResult()
+        {
+            var temp_x=0;
+            var temp_y=0;
+           
+                for(let i=0;i<=7;i++)
+                { 
+                    if(temp_x==3)
+                    {
+                        break;
+                    }
+                    temp_x=0;
+                    for(let j=0;j<=3;j++)
+                    {
+                        if(matrix[i][j]==-1)
+                         {
+                            temp_x++;
+                         }
+        
+                    }
+                }
+    
+                for(let i=0;i<=7;i++)
+                { 
+                    if(temp_y==3)
+                    {
+                        break;
+                    }
+                    temp_y=0;
+                    for(let j=0;j<=3;j++)
+                    {
+                        if(matrix[i][j]==-2)
+                         {
+                           temp_y++;
+                         }
+        
+                    }
+                }
+               
+            if(temp_x==3)
+            {
+                
+                return -1;
+            }
+            if(temp_y==3)
+            {
+                return -2;
+            }
+            return -3;
+        }
+        function onclickfunc1(resultid)
+        {
+                var id = resultid.id;
+                var r = document.getElementById("1").style.background;
+               console.log(r);
+                if(document.getElementById(id).innerHTML=="X" || document.getElementById(id).innerHTML=="0")
+                {
+                    alert("Please select Another Cell");
+                }
+                else
+                {
+                    count++;
+                    if(gamer==1)
+                    {
+                        document.getElementById(id).innerHTML="X";
+                        updatematrix(-1,id);
+                        document.getElementById("User1").style.border = "none";
+                        document.getElementById("User2").style.border = "1.5mm ridge rgba(11, 12, 0, 0.962)";
+                        gamer=2;
+                    }
+                    else
+                    {
+                        document.getElementById(id).innerHTML="0";
+                        updatematrix(-2,id);
+                        document.getElementById("User2").style.border = "none";
+                        document.getElementById("User1").style.border = "1.5mm ridge rgba(11, 12, 0, 0.962)";
+                        gamer=1;
+                    }
+                    var res = checkResult();
+                    if(res==-1)
+                    {
+                        document.getElementById("game").innerHTML="User 1 Wins";
+                        document.getElementById("User2").style.border = "none";
+                        document.getElementById("User1").style.border = "none";
+                        document.getElementById('game').style.color="green";
+                        document.getElementById('game').style.fontSize="xx-large";
+                    }
+                    if(res==-2)
+                    {
+                        document.getElementById("game").innerHTML="User 2 Wins";
+                        document.getElementById("User2").style.border = "none";
+                        document.getElementById("User1").style.border = "none";
+                        document.getElementById('game').style.color="green";
+                        document.getElementById('game').style.fontSize="xx-large";
+                    }
+                }
+                if(count==9)
+                {
+                    document.getElementById("game").innerHTML="Game over";
+                    document.getElementById("User1").style.border = "none";
+                    document.getElementById("User2").style.border = "none";  
+                    document.getElementById('game').style.color="red";
+                    document.getElementById('game').style.fontSize="xx-large";
+                }   
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: #FAEBD7;
+            align:center;
+        }
+        td{
+            width:50px;
+            height:50px;
+            border-radius: 10px;
+        }
+        .name{
+        width: 20%;
+        border: 4mm ridge rgba(211, 220, 50, .6);
+       }
+    </style>
+</head>
+<body onload="onloadfunction()">
+    <center>
+        <h1 class="name">
+            YASHVI GHETIYA<br>
+            24DEV038<br>
+            02-02-2024<br>
+        </h1>
+   
+        <br>
+        <br>
+        <div id="Timer"></div>
+        <h1 id="score"></h1>
+        <br>
+        <div id="game">
+            <table id="table1" class="center">
+                <tr>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="1">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="2">
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="3">
+                    </td>
+                    <td class="bg1" onclick="onclickfunc1(this)" id="4">
+                    </td>
+                </tr>   
+            </table>
+        </div>
+    </center>
+
+    <script>
+        var score=0;
+        var timeleft = 15;
+        var y = document.getElementById('Timer');
+        var timer = setInterval(count, 1000);
+        function count() {
+            if (timeleft == 0) {
+                y.innerHTML = " ";
+                clearTimeout(timer);
+                
+                if(score>0)
+                {
+                    document.getElementById('game').innerHTML="Hurray Well Played! <br>Your Score is "+score;
+                    document.getElementById('game').style.color="green";
+                    document.getElementById('game').style.fontSize="xx-large";
+                }
+                else{
+                    document.getElementById('game').innerHTML="Game Over Score : "+score+"<br> Better luck next time";
+                    document.getElementById('game').style.color="red";
+                    document.getElementById('game').style.fontSize="xx-large";
+                }
+            } else {
+                y.innerHTML = timeleft + ' seconds remaining';
+                timeleft--;
+            }
+        }
+       
+        
+        function display()
+        {
+            var table = document.getElementById("table1");
+            var color = "#" + Math.floor(Math.random()*16777215).toString(16);
+            for(let i=0; i<table.rows.length; i++)
+            {
+                for(let j=0; j<table.rows[i].cells.length; j++)
+                {
+                    table.rows[i].cells[j].style.background = color;
+                }
+            }
+            return color;
+        }
+        
+        function onclickfunc1(result)
+        {
+          
+          
+           var ids= result.id;
+           let arry = document.getElementById(ids).style.backgroundColor;
+          
+             if(arry.includes("."))
+            {
+                    //addrow
+                    var table = document.querySelector('#table1');
+                    var tr = document.createElement('tr');
+                    var cols = document.getElementById('table1').rows[0].cells.length;
+                    var rows= document.getElementById("table1").rows.length;
+                    var cells=cols*rows;
+                    var tempcells=cells+1;
+                    for (let i = 1; i <= cols; i++) {
+                        let td = document.createElement('td');
+                        td.setAttribute('id',tempcells);
+                       
+                        td.setAttribute("onclick","onclickfunc1(this)");
+                        tr.appendChild(td);
+                        tempcells++;
+                    }
+                    table.appendChild(tr);
+
+                    //addcol
+                    var trs =document.querySelectorAll("#table1 tr");
+                    for(let tr of trs)
+                    {
+                        let td=document.createElement("td");
+                        td.setAttribute('id',tempcells);
+                       
+                        td.setAttribute("onclick","onclickfunc1(this)");
+                        tempcells++;
+                        tr.appendChild(td);   
+                    }
+
+                    //changebackground
+                    var color=display();
+
+                    //select random cell
+                    var c = document.getElementById('table1').rows[0].cells.length;
+                    var r= document.getElementById("table1").rows.length;
+                    var totalcells=c*r;
+                    var selectedcell = Math.floor((Math.random() * totalcells));
+                    if(selectedcell==0)
+                    {
+                        selectedcell=1;
+                    }
+                
+                //change opacity
+                var opacitycolor=color+"70";
+                document.getElementById(selectedcell).style.backgroundColor = opacitycolor;
+                score++;
+                document.getElementById("score").innerHTML="Score : "+score;
+            }
+            else
+            {
+                if(score!=0)
+                {
+                    score--;
+                    document.getElementById("score").innerHTML="Score : "+score;
+                }
+            }
+            
+           
+        }
+        function onloadfunction()
+        {
+           
+            var c = document.getElementById('table1').rows[0].cells.length;
+            var r= document.getElementById("table1").rows.length;
+            
+            var totalcells=c*r;
+           
+            var selectedcell = Math.floor((Math.random() * totalcells));
+            if(selectedcell==0)
+            {
+                selectedcell=1;
+            }
+
+          
+           var color=display();
+           var opacitycolor=color+"70";
+           document.getElementById(selectedcell).style.backgroundColor = opacitycolor;
+           
+           
+            document.getElementById('score').innerHTML="Score : 0";
+        }
+    </script>
+</body>
+</html>

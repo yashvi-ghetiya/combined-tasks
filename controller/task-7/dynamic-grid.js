@@ -14,12 +14,6 @@ dynamic_grid.get("/dashboard/task-7/display",async (req, res) => {
   {
       
       let result = await executeQuery(req.query['database'],req.query['query']);
-      // if(req.query['clicked']=='clicked')
-      // {
-      //     console.log("yes1");
-          
-      // }
-      // console.log(result);
       //Calculate Pages=============================================================================================
 
       if(result.length<recordsPerPage)

@@ -40,7 +40,7 @@
 
                <tr>
                 <% for(key in keys) { %>
-                    <th onclick="window.location.href='./?page=<%= 1 %>&query=<%= query %>&database=<%= database %>&orderby=<%= key %>&ordertype=<%= ordertype1 %>'"><div style="display: flex;"><div style="margin: auto auto;"><%= key %></div><div style="display: flex;flex-direction: column;"><i style="cursor: pointer;" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" class="bi bi-arrow-down-short"></i></div></div></th>
+                    <th onclick="window.location.href='./display/?page=<%= 1 %>&query=<%= query %>&database=<%= database %>&orderby=<%= key %>&ordertype=<%= ordertype1 %>'"><div style="display: flex;"><div style="margin: auto auto;"><%= key %></div><div style="display: flex;flex-direction: column;"><i style="cursor: pointer;" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" class="bi bi-arrow-down-short"></i></div></div></th>
                 <% } %>
                </tr>
 

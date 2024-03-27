@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/task-8/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <% if(more==0) { %>
+        <div class="form" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
+            <form onsubmit="return validation()" id="my-form">
+                <% var dbvalue="" %>
+              
+                <% if(database!='') { %>
+                    <% dbvalue=database %>
+                <% } %>
+                <input type="hidden" value="clicked" name="clicked">
+                <input type="text" value="<%= dbvalue %>" name="database" id="database" size="40px" placeholder="Enter ids Name" style="height: 30px;border: 3px solid;">
+                <input class="btn" type="submit" name="iddetails" value="Show data">
+            </form>
+        </div>
+    <% } else if(more==1){ %>
+        <div class="form" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
+            <form  id="my-form">
+
+                <% var fnamevalue="" %>
+                <% if(fname!='') { %>
+                    <% fnamevalue=fname %>
+                <% } %>
+
+                <% var lnamevalue="" %>
+                <% if(lname!='') { %>
+                    <% lnamevalue=lname %>
+                <% } %>
+
+                <% var bgroupvalue="" %>
+                <% if(bgroup!='') { %>
+                    <% bgroupvalue=bgroup %>
+                <% } %>
+
+                <input type="hidden" value="clicked" name="clicked">
+                <input type="text" value="<%= fnamevalue %>" name="fname" id="fname" size="40px" placeholder="Enter first name" style="height: 30px;border: 3px solid;">
+                <input type="text" value="<%= lnamevalue %>" name="lname" id="lname" size="40px" placeholder="Enter last name" style="height: 30px;border: 3px solid;">
+                <input type="text" value="<%= bgroupvalue %>" name="bgroup" id="bgroup" size="40px" placeholder="Enter lood group" style="height: 30px;border: 3px solid;">
+                <select name="op">
+                    <option value="and">and</option>
+                    <option value="or">or</option>
+                </select>
+                <input class="btn" type="submit"  onclick="return more()" name="moredetails" value="Show data">
+            </form>
+        </div>
+    <% } %>
+    <button onclick="window.location.href='/dashboard/task-8/display/?moredetails=Show data1'" class="btn">Show More Details</button>
+    <% if(error=='' || error==undefined || error==null) { %>
+        <div class="table">
+            <table id="customers">
+
+                <% var ordertype1=ordertype %>
+
+                <% if((ordertype!='ASC' && ordertype!='DESC') || ordertype=='') { %>
+                    <% ordertype1='ASC' %>
+                <% } else if(ordertype=='ASC'){ %>
+                    <% ordertype1='DESC' %>
+                <% } else if(ordertype=='DESC'){%>
+                    <% ordertype1='ASC' %>
+                <% } %>
+               <tr>
+                <% for(key in keys) { %>
+                    <th><%= key %></th>
+                <% } %>
+               </tr>
+
+                <% for(result of results) { %>
+                    <tr>
+                        <% for(key in keys) { %>
+                            <td><%= result[key] %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+
+            </table>
+            <%- include('../particals/pagination') %>
+        </div>
+    <% } else { %>
+        <%- include('../particals/error') %>
+    <% } %>
+    
+   
+    <script>
+        function more()
+        {
+            if( document.getElementById('fname').value=='' || document.getElementById('fname').value==null || document.getElementById('lname').value=='' || document.getElementById('lname').value==null || document.getElementById('bgroup').value==null || document.getElementById('bgroup').value=='')
+            {
+               
+                if(document.getElementById('fname').value=='' || document.getElementById('fname').value==null)
+                {
+                    document.getElementById("fname").style.border = "2px solid red"; 
+                    document.getElementById('fname').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                    document.getElementById("fname").placeholder = "Please type first name here.."; 
+                    
+                }
+                if(document.getElementById('lname').value=='' || document.getElementById('lname').value==null)
+                {
+                    document.getElementById("lname").style.border = "2px solid red"; 
+                    document.getElementById('lname').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                    document.getElementById("lname").placeholder = "Please type last name here.."; 
+                    
+                }
+                if(document.getElementById('bgroup').value=='' || document.getElementById('bgroup').value==null)
+                {
+                    document.getElementById("bgroup").style.border = "2px solid red"; 
+                    document.getElementById('bgroup').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                    document.getElementById("bgroup").placeholder = "Please type blood group here.."; 
+                    
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function validation()
+        {
+            if( document.getElementById('database').value=='' || document.getElementById('database').value==null)
+            {
+                
+                if(document.getElementById('database').value=='' || document.getElementById('database').value==null)
+                {
+                    document.getElementById("database").style.border = "2px solid red"; 
+                    document.getElementById('database').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                    document.getElementById("database").placeholder = "Please Type ids here.."; 
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/task-5/css/displaystyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <center>
+  <h1>YASHVI GHETIYA<br>Result</h1>
+    <table id="customers">
+       <tr>
+        <th colspan="7" style="text-align: center;font-size: 20px;border: 2px solid black;color: black;">Exam Result</th>
+       </tr>
+       <% for(res of result1) { %>
+        <tr>
+          <th colspan="7">Name : <%= res.fname %> <%= res.lname %></th>
+        </tr>
+        
+        
+        <tr>  
+          <th colspan="3">Attendance Present Days : <%= res.presentdays %> / 30</th>
+          <th colspan="4">Precentage Attendance : <%= res.percentage %></th>
+        </tr>
+       <% } %>
+      
+
+
+       <tr>
+        <th rowspan="2">Subject</th>
+        <th colspan="2">Terminal</th>
+        <th colspan="2">Preliminary</th>
+        <th colspan="2">Final</th>
+       </tr>
+
+       <tr>
+        <th >Practical</th>
+        <th >Theory</th>
+        <th >Practical</th>
+        <th >Theory</th>
+        <th >Practical</th>
+        <th >Theory</th>
+       </tr>
+
+       <% var index=0 %>
+       <% var resultgenerate=1 %>
+       <% for(res of result2) { %>
+       <tr  style="text-align: center;">
+        <td><%= res.subname %></td>
+      
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].terminalpractical==1) { %>
+                <%= res.terminalpractical %> / <%= result4[0].marks %>
+              <% } else {%>
+                'AB'
+                <% resultgenerate=0 %>
+              <% } %>
+            <% } %>
+        </td>
+
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].terminaltheory==1) { %>
+                <%= res.terminaltheory %> / <%= result4[1].marks %>
+              <% } else {%>
+                'AB'
+                <% resultgenerate=0 %>
+              <% } %>
+            <% } %>
+        </td>
+
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].preliminarypractical==1) { %>
+                <%= res.preliminarypractical %> / <%= result4[4].marks %>
+              <% } else {%>
+                'AB'
+                <% resultgenerate=0 %>
+              <% } %>
+            <% } %>
+        </td>
+
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].preliminarytheory==1) { %>
+                <%= res.preliminarytheory %> / <%= result4[5].marks %>
+              <% } else {%>
+                'AB'
+                <% resultgenerate=0 %>
+              <% } %>
+           <% } %>
+        </td>
+
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].finalpractical==1) { %>
+               <%= res.finalpractical %> / <%= result4[2].marks %>
+              <% } else {%>
+                'AB'
+                <% resultgenerate=0 %>
+              <% } %>
+            <% } %>
+        </td>
+
+        <td><% if(result7[index].subname==res.subname) { %>
+              <% if(result7[index].finaltheory==1) { %>
+                <%= res.finaltheory %> / <%= result4[3].marks %>
+              <% } else {%>
+               'AB'
+               <% resultgenerate=0 %>
+              <% } %>
+          <% } %>
+        </td>
+       </tr>
+       <% index+=1 %>
+       <% } %>
+
+      <% if(resultgenerate==1) { %>
+        <% for(res of result3) { %>
+          <tr style="text-align: center;">
+           <td>Sub Total</td>
+           <td><%= res.terminalpractical %> / <%= result5[0].terminalpractical %></td>
+           <td><%= res.terminaltheory %> / <%= result5[0].terminaltheory %></td>
+           <td><%= res.preliminarypractical %> / <%= result5[0].preliminarypractical %></td>
+           <td><%= res.preliminarytheory %> / <%= result5[0].preliminarytheory %></td>
+           <td><%= res.finalpractical %> / <%= result5[0].finalpractical %></td>
+           <td><%= res.finaltheory %> / <%= result5[0].finaltheory %></td>
+          </tr>
+          <% } %>
+  
+          <% for(res of result6) { %>
+            <tr  style="text-align: center;font-weight:bolder;">
+             <td >Total</td>
+             <td colspan="2"><%= res.terminal %> / <%= res.terminal1 %></td>
+             <td colspan="2"><%= res.preliminary %> / <%= res.preliminary1 %> </td>
+             <td colspan="2"><%= res.final %> / <%= res.final1 %></td>
+            </tr>
+  
+            <tr style="font-weight:bolder;">
+              <td style="text-align: center">Grand Total</td>
+              <td colspan="6"><%= res.total %> / <%= res.total1 %></td>
+             </tr>
+             
+             <% if(Number(res.percentage.split("%")[0]) >= 35.00 ){ %>
+              <tr  style="font-weight:bolder;">
+                <td style="text-align: center">Result</td>
+                <td colspan="6" style="color:#04AA6D;">PASS</td>
+               </tr>
+  
+               <tr  style="font-weight:bolder;">
+                <td style="text-align: center">Percentage</td>
+                <td colspan="6"><%= res.percentage %></td>
+               </tr>
+             <% } else { %>
+              <tr  style="font-weight:bolder;">
+                <td style="text-align: center">Result</td>
+                <td colspan="6" style="color:red;">FAIL</td>
+               </tr>
+  
+               <tr  style="font-weight:bolder;">
+                <td style="text-align: center">Percentage</td>
+                <td colspan="6">--</td>
+               </tr>
+              <% } %>
+           
+            
+        <% } %>
+      <% } else { %>
+        <% for(res of result3) { %>
+          <tr style="text-align: center;">
+           <td>Sub Total</td>
+           <td>--</td>
+           <td>--</td>
+           <td>--</td>
+           <td>--</td>
+           <td>--</td>
+           <td>--</td>
+          </tr>
+          <% } %>
+  
+          <% for(res of result6) { %>
+            <tr  style="text-align: center;font-weight:bolder;">
+             <td >Total</td>
+             <td colspan="2">--</td>
+             <td colspan="2">--</td>
+             <td colspan="2">--</td>
+            </tr>
+  
+            <tr style="font-weight:bolder;">
+              <td style="text-align: center">Grand Total</td>
+              <td colspan="6">--</td>
+             </tr>
+             
+             <tr  style="font-weight:bolder;">
+              <td style="text-align: center">Result</td>
+              <td colspan="6" style="color:red">FAIL</td>
+             </tr>
+
+
+             <tr  style="font-weight:bolder;">
+              <td style="text-align: center">Percentage</td>
+              <td colspan="6">--</td>
+             </tr>
+        <% } %>
+      <% } %>
+    </table>
+</body>
+</html>

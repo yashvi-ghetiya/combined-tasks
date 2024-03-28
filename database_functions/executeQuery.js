@@ -47,6 +47,7 @@ async function executeQueryInsert(db,query)
                         reject(err);
                     }
                     else{
+                        console.log(result.insertId);
                         resolve(result.insertId);
                     }
                 });
@@ -179,6 +180,7 @@ async function executeselectQuery(db,query)
         return result;
     }
 }
+
 async function insertData(database, query) {
     let result = await executeQueryInsert(database, query);
     return result;

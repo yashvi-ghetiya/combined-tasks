@@ -1,7 +1,7 @@
 let fetch_POST_form = async (url, formid) => {
     let form = document.getElementById(formid);
     const data = new URLSearchParams(new FormData(form));
-   
+//    console.log(data);
     var res = await fetch(url, {
         method: "POST",
         body: data,
@@ -10,7 +10,7 @@ let fetch_POST_form = async (url, formid) => {
         }
     });
     res = await res.json();
-    
+    console.log(res);
     return res;
 }
 

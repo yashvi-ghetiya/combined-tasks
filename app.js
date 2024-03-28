@@ -1,5 +1,6 @@
 const express = require('express');
 const routers = require('./Main_router.js');
+let cookieParser = require("cookie-parser");
 const app = express();
 require("dotenv").config();
 
@@ -7,6 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.set('views', './views');
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 app.listen((process.env.port),(error)=>{

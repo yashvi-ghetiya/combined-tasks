@@ -1,12 +1,15 @@
 const result = require("express").Router();
 var mysql = require('mysql');
+const { authentication,getUserId  } = require("../../functions/authentication");
 
 result.get("/dashboard/task-6/display", (req, res) => {
+  if(authentication(req))
+  {
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
-    database: "student27_02_2024"
+    database: "combinedTask"
   });
   con.connect(function (err) {
     if (err) throw err;
@@ -18,7 +21,7 @@ result.get("/dashboard/task-6/display", (req, res) => {
       startoffset = (Number(req.query["page"]) * total) - total;
     }
 
-    con.query("SELECT count(*) as totalrows FROM studentmaster;", function (err, result, fields) {
+    con.query("SELECT count(*) as totalrows FROM student_master_task2;", function (err, result, fields) {
       if (err) throw err;
 
       totalpages = (result[0].totalrows) / total;
@@ -37,33 +40,38 @@ result.get("/dashboard/task-6/display", (req, res) => {
         }
 
         if ((req.query["orderby"] == "" || req.query["ordertype"] == "" || req.query["orderby"] == undefined || req.query["ordertype"] == undefined)) {
-          con.query("select studentmaster.sid,studentmaster.fname,studentmaster.lname, count(atId) as presentdays,concat(ROUND((count(atId)/0.3),2),'%') from studentmaster inner join attendancemaster on studentmaster.sid=attendancemaster.sid  where attend='1' and month(day)=" + month + " and year(day)=" + year + " group by studentmaster.sid LIMIT " + startoffset + "," + total + ";", function (err, result, fields) {
+          con.query("select student_master_task2.sid,student_master_task2.fname,student_master_task2.lname, count(atId) as presentdays,concat(ROUND((count(atId)/0.3),2),'%') from student_master_task2 inner join attendance_master_task2 on student_master_task2.sid=attendance_master_task2.sid  where attend='1' and month(day)=" + month + " and year(day)=" + year + " group by student_master_task2.sid LIMIT " + startoffset + "," + total + ";", function (err, result, fields) {
             if (err) throw err;
             if (req.query["page"] == undefined) {
-              res.render("./task-6/display", { page: 1, result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
+              res.render("./task-6/display", {  userId:getUserId(req),page: 1, result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
             }
             else {
 
-              res.render("./task-6/display", { page: req.query["page"], result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
+              res.render("./task-6/display", { userId:getUserId(req), page: req.query["page"], result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
             }
           });
         }
         else {
 
-          con.query("select studentmaster.sid,studentmaster.fname,studentmaster.lname, count(atId) as presentdays,(count(atId)/0.3) from studentmaster inner join attendancemaster on studentmaster.sid=attendancemaster.sid  where attend='1' and month(day)=" + month + " and year(day)=" + year + " group by studentmaster.sid LIMIT " + startoffset + "," + total + ";", function (err, result, fields) {
+          con.query("select student_master_task2.sid,student_master_task2.fname,student_master_task2.lname, count(atId) as presentdays,(count(atId)/0.3) from student_master_task2 inner join attendance_master_task2 on student_master_task2.sid=attendance_master_task2.sid  where attend='1' and month(day)=" + month + " and year(day)=" + year + " group by student_master_task2.sid LIMIT " + startoffset + "," + total + ";", function (err, result, fields) {
             if (err) throw err;
             if (req.query["page"] == undefined) {
 
-              res.render("./task-6/display", { page: 1, result: result, totalpages: totalpages, orderby: req.query["orderby"], ordertype: req.query["ordertype"], month: month, year: year });
+              res.render("./task-6/display", { userId:getUserId(req), page: 1, result: result, totalpages: totalpages, orderby: req.query["orderby"], ordertype: req.query["ordertype"], month: month, year: year });
             }
             else {
-              res.render("./task-6/display", { page: req.query["page"], result: result, totalpages: totalpages, orderby: req.query["orderby"], ordertype: req.query["ordertype"], month: month, year: year });
+              res.render("./task-6/display", { userId:getUserId(req), page: req.query["page"], result: result, totalpages: totalpages, orderby: req.query["orderby"], ordertype: req.query["ordertype"], month: month, year: year });
             }
           });
         }
       }
     });
   });
+}
+else
+    {
+        res.render('./task-12/html/login');
+    }
 });
 
 

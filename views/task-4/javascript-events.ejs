@@ -1,263 +1,285 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <style>
-            .chess-board { border-spacing: 0; border-collapse: collapse; }
-            .chess-board th { padding: 1.9em; }
-            .chess-board td { border: 1px solid; width: 2em; height: 2em; }
-            .chess-board .light { background: white; color: black;}
-            .chess-board .dark { background: black; color: white;}
-            th, td {
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body onresize="onresizefunction()">
-        <table class="chess-board" width="100px" align="center">
-            <tbody>
-                
-                <tr>
-                  
-                    <td class="light"> 
-                        <label for="blur">Onblur</label>
-                        <br>
-                        <input type="text" name="blur" id="blur" onblur="onblurfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="change">Onchange</label>   <br>
-                        <input type="text" name="change" id="change" onchange="onchangefunction()">
-                    </td>
-                    <td class="light">
-                        <label for="click">OnClick</label>   <br>
-                        <input type="submit" name="click" value="click" id="click" onclick="onclickunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="contentmenu">OnContentMenu</label>   <br>
-                        <input type="submit" value="right click" name="contentmenu" id="contentmenu" oncontextmenu="oncontextmenufunction()">
-                    </td>
-                    <td class="light">
-                        <label for="copy">OnCopy</label>   <br>
-                        <input type="text" value="copy text" name="copy" id="copy" oncopy="oncopyfunction()">
-                    </td>
-                   
-                <tr>
-                 
-                    <td class="dark">
-                        <label for="cut">OnCut</label>   <br>
-                        <input type="text" value="cut text" name="cut" id="cut" oncut="oncutfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="dblclick">OnDoubleClick</label>   <br>
-                        <input type="submit" value="double click" name="dblclick" id="dblclick" ondblclick="ondblfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="drag">OnDrag</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="drag" id="drag" ondrag="ondragfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="dragend">OnDragEnd</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="dragend" id="dragend" ondragend="ondragendfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="drop">OnDrop</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="drop" id="drop" ondrop="ondropfunction()">
-                    </td>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Bootstrap Advance Admin Template</title>
+    <link href="/task-12/assets/css/bootstrap.css" rel="stylesheet" />
+   
+    <link href="/task-12/assets/css/font-awesome.css" rel="stylesheet" />
+   
+    <link href="/task-12/assets/css/basic.css" rel="stylesheet" />
+   
+    <link href="/task-12/assets/css/custom.css" rel="stylesheet" />
+  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <style>
+        .chess-board { border-spacing: 0; border-collapse: collapse; }
+        .chess-board th { padding: 1.9em; }
+        .chess-board td { border: 1px solid; width: 2em; height: 2em; }
+        .chess-board .light { background: white; color: black;}
+        .chess-board .dark { background: black; color: white;}
+        th, td {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body onresize="onresizefunction()">
+    <div id="wrapper">
+        <%- include('../header/header.ejs') %>
+       
+        <div id="page-wrapper">
+            
+            <table class="chess-board" width="100px" align="center">
+                <tbody>
                     
-                </tr>
-                <tr>
-               
-                    <td class="light">
-                        <label for="dragenter">onDragEnter</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="dragenter" id="dragenter" ondragend="ondragenterfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="focus">onFocus</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="focus" id="focus" onfocus="onfocusfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="focusin">onFocusin</label>   <br>
-                        <input type="submit" draggable="true" value="drag me" name="focusin" id="focusin" onfocusin="onfocusinfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="keydown">onkeydown</label>   <br>
-                        <input type="text" draggable="true" name="keydown" id="keydown" onkeydown="onkeydownfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="keyup">onkeyup</label>   <br>
-                        <input type="text" draggable="true" name="keyup" id="keyup" onkeyup="onkeyupfunction()">
-                    </td>
-                <tr>
-                <tr>
-                    <td class="dark">
-                        <label for="keypress">keypress</label>   <br>
-                        <input type="text" draggable="true" name="keypress" id="keypress" onkeypress="onkeypressfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="mousedown">OnMouseDown</label>   <br>
-                        <input type="text" draggable="true" name="mousedown" id="mousedown" onmousedown="onmousedownfunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="mouseup">OnMouseUp</label>   <br>
-                        <input type="text" draggable="true" name="mouseup" id="mouseup" onmouseup="onmouseupfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="mouseleave">OnmouseLeave</label>   <br>
-                        <input type="text" draggable="true" name="mouseleave" id="mouseleave" onmouseleave="ommouseleavefunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="mouseenter">OnMouseEnter</label>   <br>
-                        <input type="text" draggable="true" name="mouseenter" id="mouseenter" onmouseenter="onmouseenterfunction()">
-                    </td>
-                </tr>
-                <tr>
-              
-                    <td class="light">
-                        <label for="mousemove">OnMouseMove</label>   <br>
-                        <input type="text" draggable="true" name="mousemove" id="mousemove" onmousemove="onmousemovefunction()">
-                    </td>
-                    <td class="dark">
-                        <label for="mouseover">OnMouseOver</label>   <br>
-                        <input type="text" draggable="true" name="mouseover" id="mouseover" onmouseover="onmouseoverfunction()">
-                    </td>
-                    <td class="light">
-                        <label for="mouseout">OnMouseOut</label>   <br>
-                        <input type="text" draggable="true" name="mouseout" id="mouseout" onmouseout="onmouseoutfunction()">
-                    </td>
-                    <td class="dark">
-                        <form onreset="onresetfunction()">
-                            <label for="mouseout">Onreset</label>   <br>
-                            <input type="reset" name="reset" id="reset" >
-                        </form>
-                    </td>
-                    <td class="light">
-                        <img src="image.gif" onerror="onerrorfunction()"> 
-                    </td>
-                </tr>
-                <tr>
-                 
-                    <td class="dark">
-                        <div onselect="onselectfunction()">
-                            Hello how are you?
-                        </div>
-                    </td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                </tr>
-            </tbody>
-        </table>
-        <script>
-            function onblurfunction()
-            {
-                alert("onblurevent triggered");
-            }
-            function onchangefunction()
-            {
-                alert("onchange value");
-            }
-            function onclickunction()
-            {
-                alert("onclick event triggred");
-            }
-            function oncontextmenufunction()
-            {
-                alert("oncontent event triggered");
-            }
-            function oncopyfunction()
-            {
-                alert("oncopy event triggered");
-            }
-            function oncutfunction()
-            {
-                alert("oncut event triggered");
-            }
-            function ondblfunction()
-            {
-                alert("ondoubleclick triggered");
-            }
-            function ondragfunction()
-            {
-                alert("ondrag event triggered");
-            }
-            function ondragendfunction()
-            {
-                alert("ondragend event triggered");
-            }
-            function ondropfunction()
-            {
-                alert("ondrop event triggered");
-            }
-            function ondragenterfunction()
-            {
-                alert("ondragenter triggered");
-            }
-            function onfocusfunction()
-            {
-                alert("onfocus triggered");
-            }
-            function onfocusinfunction()
-            {
-                alert("onfocusin triggered");
-            }
-            function onkeydownfunction()
-            {
-                alert("onkeydown triggered")
-            }
-            function onkeyupfunction()
-            {
-                alert("onkeyup triggered")
-            }
-            function onkeypressfunction()
-            {
-                alert("onkeypress triggered");
-            }
-            function onmousedownfunction()
-            {
-                alert("onmousedown triggered");
-            }
-            function onmouseupfunction()
-            {
-                alert("onmouseup triggered");
-            }
-            function onmouseenterfunction()
-            {
-                alert("onmouseenter triggered");
-            }
-            function ommouseleavefunction()
-            {
-                alert("onmouseleave triggered");
-            }
-            function onmousemovefunction()
-            {
-                alert("onmousemove triggered");
-            }
-            function onmouseoverfunction()
-            {
-                alert("onmouseover triggered");
-            }
-            function onmouseoutfunction()
-            {
-                alert("onmouseout triggered");
-            }
-            function onresetfunction()
-            {
-                alert("onreset triggered");
-            }
-            function onresizefunction()
-            {
-                alert("onresize triggered");
-            }
-            function onerrorfunction()
-            {
-                alert("onerror triggered");
-            }
-            function onselectfunction()
-            {
-                alert("onselect triggered");
-            }
-        </script>
-    </body>
+                    <tr>
+                      
+                        <td class="light"> 
+                            <label for="blur">Onblur</label>
+                            <br>
+                            <input type="text" name="blur" id="blur" onblur="onblurfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="change">Onchange</label>   <br>
+                            <input type="text" name="change" id="change" onchange="onchangefunction()">
+                        </td>
+                        <td class="light">
+                            <label for="click">OnClick</label>   <br>
+                            <input type="submit" name="click" value="click" id="click" onclick="onclickunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="contentmenu">OnContentMenu</label>   <br>
+                            <input type="submit" value="right click" name="contentmenu" id="contentmenu" oncontextmenu="oncontextmenufunction()">
+                        </td>
+                        <td class="light">
+                            <label for="copy">OnCopy</label>   <br>
+                            <input type="text" value="copy text" name="copy" id="copy" oncopy="oncopyfunction()">
+                        </td>
+                       
+                    <tr>
+                     
+                        <td class="dark">
+                            <label for="cut">OnCut</label>   <br>
+                            <input type="text" value="cut text" name="cut" id="cut" oncut="oncutfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="dblclick">OnDoubleClick</label>   <br>
+                            <input type="submit" value="double click" name="dblclick" id="dblclick" ondblclick="ondblfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="drag">OnDrag</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="drag" id="drag" ondrag="ondragfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="dragend">OnDragEnd</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="dragend" id="dragend" ondragend="ondragendfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="drop">OnDrop</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="drop" id="drop" ondrop="ondropfunction()">
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                   
+                        <td class="light">
+                            <label for="dragenter">onDragEnter</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="dragenter" id="dragenter" ondragend="ondragenterfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="focus">onFocus</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="focus" id="focus" onfocus="onfocusfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="focusin">onFocusin</label>   <br>
+                            <input type="submit" draggable="true" value="drag me" name="focusin" id="focusin" onfocusin="onfocusinfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="keydown">onkeydown</label>   <br>
+                            <input type="text" draggable="true" name="keydown" id="keydown" onkeydown="onkeydownfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="keyup">onkeyup</label>   <br>
+                            <input type="text" draggable="true" name="keyup" id="keyup" onkeyup="onkeyupfunction()">
+                        </td>
+                    <tr>
+                    <tr>
+                        <td class="dark">
+                            <label for="keypress">keypress</label>   <br>
+                            <input type="text" draggable="true" name="keypress" id="keypress" onkeypress="onkeypressfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="mousedown">OnMouseDown</label>   <br>
+                            <input type="text" draggable="true" name="mousedown" id="mousedown" onmousedown="onmousedownfunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="mouseup">OnMouseUp</label>   <br>
+                            <input type="text" draggable="true" name="mouseup" id="mouseup" onmouseup="onmouseupfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="mouseleave">OnmouseLeave</label>   <br>
+                            <input type="text" draggable="true" name="mouseleave" id="mouseleave" onmouseleave="ommouseleavefunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="mouseenter">OnMouseEnter</label>   <br>
+                            <input type="text" draggable="true" name="mouseenter" id="mouseenter" onmouseenter="onmouseenterfunction()">
+                        </td>
+                    </tr>
+                    <tr>
+                  
+                        <td class="light">
+                            <label for="mousemove">OnMouseMove</label>   <br>
+                            <input type="text" draggable="true" name="mousemove" id="mousemove" onmousemove="onmousemovefunction()">
+                        </td>
+                        <td class="dark">
+                            <label for="mouseover">OnMouseOver</label>   <br>
+                            <input type="text" draggable="true" name="mouseover" id="mouseover" onmouseover="onmouseoverfunction()">
+                        </td>
+                        <td class="light">
+                            <label for="mouseout">OnMouseOut</label>   <br>
+                            <input type="text" draggable="true" name="mouseout" id="mouseout" onmouseout="onmouseoutfunction()">
+                        </td>
+                        <td class="dark">
+                            <form onreset="onresetfunction()">
+                                <label for="mouseout">Onreset</label>   <br>
+                                <input type="reset" name="reset" id="reset" >
+                            </form>
+                        </td>
+                        <td class="light">
+                            <img src="image.gif" onerror="onerrorfunction()"> 
+                        </td>
+                    </tr>
+                    <tr>
+                     
+                        <td class="dark">
+                            <div onselect="onselectfunction()">
+                                Hello how are you?
+                            </div>
+                        </td>
+                        <td class="light"></td>
+                        <td class="dark"></td>
+                        <td class="light"></td>
+                        <td class="dark"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+    </div>
+    <script>
+        function onblurfunction()
+        {
+            alert("onblurevent triggered");
+        }
+        function onchangefunction()
+        {
+            alert("onchange value");
+        }
+        function onclickunction()
+        {
+            alert("onclick event triggred");
+        }
+        function oncontextmenufunction()
+        {
+            alert("oncontent event triggered");
+        }
+        function oncopyfunction()
+        {
+            alert("oncopy event triggered");
+        }
+        function oncutfunction()
+        {
+            alert("oncut event triggered");
+        }
+        function ondblfunction()
+        {
+            alert("ondoubleclick triggered");
+        }
+        function ondragfunction()
+        {
+            alert("ondrag event triggered");
+        }
+        function ondragendfunction()
+        {
+            alert("ondragend event triggered");
+        }
+        function ondropfunction()
+        {
+            alert("ondrop event triggered");
+        }
+        function ondragenterfunction()
+        {
+            alert("ondragenter triggered");
+        }
+        function onfocusfunction()
+        {
+            alert("onfocus triggered");
+        }
+        function onfocusinfunction()
+        {
+            alert("onfocusin triggered");
+        }
+        function onkeydownfunction()
+        {
+            alert("onkeydown triggered")
+        }
+        function onkeyupfunction()
+        {
+            alert("onkeyup triggered")
+        }
+        function onkeypressfunction()
+        {
+            alert("onkeypress triggered");
+        }
+        function onmousedownfunction()
+        {
+            alert("onmousedown triggered");
+        }
+        function onmouseupfunction()
+        {
+            alert("onmouseup triggered");
+        }
+        function onmouseenterfunction()
+        {
+            alert("onmouseenter triggered");
+        }
+        function ommouseleavefunction()
+        {
+            alert("onmouseleave triggered");
+        }
+        function onmousemovefunction()
+        {
+            alert("onmousemove triggered");
+        }
+        function onmouseoverfunction()
+        {
+            alert("onmouseover triggered");
+        }
+        function onmouseoutfunction()
+        {
+            alert("onmouseout triggered");
+        }
+        function onresetfunction()
+        {
+            alert("onreset triggered");
+        }
+        function onresizefunction()
+        {
+            alert("onresize triggered");
+        }
+        function onerrorfunction()
+        {
+            alert("onerror triggered");
+        }
+        function onselectfunction()
+        {
+            alert("onselect triggered");
+        }
+    </script>
+    <script src="/task-12/assets/js/jquery-1.10.2.js"></script>
+    <script src="/task-12/assets/js/bootstrap.js"></script>
+    <script src="/task-12/assets/js/jquery.metisMenu.js"></script>
+    <script src="/task-12/assets/js/custom.js"></script>
+</body>
 </html>

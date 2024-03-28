@@ -1,16 +1,24 @@
 const searching_by_delimiter = require("express").Router();
-
-const { executeQuery } = require('../../database_functions/executeQuery');
+const { authentication,getUserId } = require("../../functions/authentication");
+const { executeQuery  } = require('../../database_functions/executeQuery');
 
 searching_by_delimiter.get("/dashboard/task-9/display",async (req, res) => {
-    res.render('./task-9/html/display',{keys:'',results:'',error:'Enter values'})
-
+    if(authentication(req))
+    {
+    res.render('./task-9/html/display',{userId:getUserId(req),keys:'',results:'',error:'Enter values'})
+    }
+    else
+    {
+        res.render('./task-12/html/login');
+    }
 });
 
 searching_by_delimiter.post("/dashboard/task-9/display",async (req, res) => {
+    if(authentication(req))
+    {
     var data=req.body.clause;
    
-    var query="select * from student_master where";
+    var query="select * from student_master_task1 where";
    
     if(generateQuery(data,'_',"fname"))
     {
@@ -76,12 +84,17 @@ searching_by_delimiter.post("/dashboard/task-9/display",async (req, res) => {
     console.log(query);
    
            
-    let result = await executeQuery('studentMaster',query);
-    res.render('./task-9/html/display',{keys:result[0],results:result,error:''})
+    let result = await executeQuery('combinedTask',query);
+    res.render('./task-9/html/display',{userId:getUserId(req),keys:result[0],results:result,error:''});
+}
+else
+    {
+        res.render('./task-12/html/login');
+    }
 });
 
 function generateQuery(data,delimiter,columnname)
-{
+{ 
     var mainstr='';
     var delimiters=['_','^','}','{','#','$'];
     if(data.includes(delimiter))
@@ -122,6 +135,7 @@ function generateQuery(data,delimiter,columnname)
     {
         return mainstr;
     }
+
 }
 
 module.exports = searching_by_delimiter;

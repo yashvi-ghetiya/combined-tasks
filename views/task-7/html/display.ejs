@@ -1,90 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Bootstrap Advance Admin Template</title>
+    <link href="/task-12/assets/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="/task-7/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="/task-12/assets/css/font-awesome.css" rel="stylesheet" />
+   
+    <link href="/task-12/assets/css/basic.css" rel="stylesheet" />
+   
+    <link href="/task-12/assets/css/custom.css" rel="stylesheet" />
+  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <div class="form" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
-        <form onsubmit="return validation()">
-            <% var dbvalue="" %>
-            <% var queryvalue="" %>
-            <% if(query!='') { %>
-                <% queryvalue=query %>
-            <% } %>
-            <% if(database!='') { %>
-                <% dbvalue=database %>
-            <% } %>
-            <input type="hidden" value="clicked" name="clicked">
-            <input type="text" value="<%= dbvalue %>" name="database" id="database" size="40px" placeholder="Enter Database Name" style="height: 30px;border: 3px solid;">
-            <input type="text" value="<%= queryvalue %>" name="query" id="query" size="70px" placeholder="Enter Query" style="height: 30px;border: 3px solid;">
-            <input class="btn" type="submit" value="Show data">
-        </form>
-    </div>
-    <% if(error=='' || error==undefined || error==null) { %>
-        <div class="table">
-            <table id="customers">
-
-                <% var ordertype1='' %>
-
-                <% if(ordertype!='ASC' || ordertype!='DESC') { %>
-                    <% ordertype1='ASC' %>
-                <% } else if(ordertype=='ASC'){ %>
-                    <% ordertype1='DESC' %>
-                <% } else if(ordertype=='DESC'){%>
-                    <% ordertype1='ASC' %>
-                <% } %>
-
-               <tr>
-                <% for(key in keys) { %>
-                    <th onclick="window.location.href='./display/?page=<%= 1 %>&query=<%= query %>&database=<%= database %>&orderby=<%= key %>&ordertype=<%= ordertype1 %>'"><div style="display: flex;"><div style="margin: auto auto;"><%= key %></div><div style="display: flex;flex-direction: column;"><i style="cursor: pointer;" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" class="bi bi-arrow-down-short"></i></div></div></th>
-                <% } %>
-               </tr>
-
-                <% for(result of results) { %>
-                    <tr>
-                        <% for(key in keys) { %>
-                            <td><%= result[key] %></td>
+    <div id="wrapper">
+        <%- include('../../header/header.ejs') %>
+        <div id="page-wrapper">
+            <div class="form" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
+                <form onsubmit="return validation()">
+                    <% var dbvalue="" %>
+                    <% var queryvalue="" %>
+                    <% if(query!='') { %>
+                        <% queryvalue=query %>
+                    <% } %>
+                    <% if(database!='') { %>
+                        <% dbvalue=database %>
+                    <% } %>
+                    <input type="hidden" value="clicked" name="clicked">
+                    <input type="text" value="<%= dbvalue %>" name="database" id="database" size="40px" placeholder="Enter Database Name" style="height: 30px;border: 3px solid;">
+                    <input type="text" value="<%= queryvalue %>" name="query" id="query" size="70px" placeholder="Enter Query" style="height: 30px;border: 3px solid;">
+                    <input class="btn" type="submit" value="Show data">
+                </form>
+            </div>
+            <% if(error=='' || error==undefined || error==null) { %>
+                <div class="table">
+                    <table id="customers">
+        
+                        <% var ordertype1='' %>
+        
+                        <% if(ordertype!='ASC' || ordertype!='DESC') { %>
+                            <% ordertype1='ASC' %>
+                        <% } else if(ordertype=='ASC'){ %>
+                            <% ordertype1='DESC' %>
+                        <% } else if(ordertype=='DESC'){%>
+                            <% ordertype1='ASC' %>
                         <% } %>
-                    </tr>
-                <% } %>
-
-            </table>
-            <%- include('../particals/pagination') %>
+        
+                       <tr>
+                        <% for(key in keys) { %>
+                            <th onclick="window.location.href='./display/?page=<%= 1 %>&query=<%= query %>&database=<%= database %>&orderby=<%= key %>&ordertype=<%= ordertype1 %>'"><div style="display: flex;"><div style="margin: auto auto;"><%= key %></div><div style="display: flex;flex-direction: column;"><i style="cursor: pointer;" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" class="bi bi-arrow-down-short"></i></div></div></th>
+                        <% } %>
+                       </tr>
+        
+                        <% for(result of results) { %>
+                            <tr>
+                                <% for(key in keys) { %>
+                                    <td><%= result[key] %></td>
+                                <% } %>
+                            </tr>
+                        <% } %>
+        
+                    </table>
+                    <%- include('../particals/pagination') %>
+                </div>
+            <% } else { %>
+                <%- include('../particals/error') %>
+            <% } %>
+            
+           
+            <script>
+                function validation()
+                {
+                    if(document.getElementById('query').value=='' || document.getElementById('query').value==null || document.getElementById('database').value=='' || document.getElementById('database').value==null)
+                    {
+                        if(document.getElementById('query').value=='' || document.getElementById('query').value==null)
+                        {
+                            document.getElementById("query").style.border = "2px solid red"; 
+                            document.getElementById('query').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                            document.getElementById("query").placeholder = "Please Type Query here.."; 
+                        }
+                        if(document.getElementById('database').value=='' || document.getElementById('database').value==null)
+                        {
+                            document.getElementById("database").style.border = "2px solid red"; 
+                            document.getElementById('database').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+                            document.getElementById("database").placeholder = "Please Type Database Name here.."; 
+                            
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            </script>
+            
         </div>
-    <% } else { %>
-        <%- include('../particals/error') %>
-    <% } %>
-    
+      
+    </div>
    
-    <script>
-        function validation()
-        {
-            if(document.getElementById('query').value=='' || document.getElementById('query').value==null || document.getElementById('database').value=='' || document.getElementById('database').value==null)
-            {
-                if(document.getElementById('query').value=='' || document.getElementById('query').value==null)
-                {
-                    document.getElementById("query").style.border = "2px solid red"; 
-                    document.getElementById('query').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
-                    document.getElementById("query").placeholder = "Please Type Query here.."; 
-                }
-                if(document.getElementById('database').value=='' || document.getElementById('database').value==null)
-                {
-                    document.getElementById("database").style.border = "2px solid red"; 
-                    document.getElementById('database').style.backgroundColor = "rgba(255, 0, 0, 0.2)";
-                    document.getElementById("database").placeholder = "Please Type Database Name here.."; 
-                    
-                }
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    </script>
+    <script src="/task-12/assets/js/jquery-1.10.2.js"></script>
+    <script src="/task-12/assets/js/bootstrap.js"></script>
+    <script src="/task-12/assets/js/jquery.metisMenu.js"></script>
+    <script src="/task-12/assets/js/custom.js"></script>
 </body>
 </html>

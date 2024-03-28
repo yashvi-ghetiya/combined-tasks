@@ -1,7 +1,14 @@
-<html>
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Bootstrap Advance Admin Template</title>
+    <link href="/task-12/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/task-12/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/task-12/assets/css/basic.css" rel="stylesheet" />
+    <link href="/task-12/assets/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="/task-11/css/form.css" rel="stylesheet">
     <link href="/task-11/css/alert.css" rel="stylesheet">
@@ -14,9 +21,12 @@
         }
     </script>
 </head>
-
-<body onload="onloadfun()">
-
+<body>
+    <div id="wrapper">
+        <%- include('../../header/header.ejs') %>
+       
+        <div id="page-wrapper">
+            
     <form id="regForm">
         <h1>Employee Register:</h1>
 
@@ -505,12 +515,18 @@
         <span class="closebtn" onclick="clearform()">&times;</span> 
         <strong>Success!</strong> Data Saved SuccessFully.
       </div>
+            
+        </div>
+      
+    </div>
     <script>
         var currentTab = 0;
         var submitype="<%=submitype%>";
         showTab(currentTab); 
     </script>
-
+    <script src="/task-12/assets/js/jquery-1.10.2.js"></script>
+    <script src="/task-12/assets/js/bootstrap.js"></script>
+    <script src="/task-12/assets/js/jquery.metisMenu.js"></script>
+    <script src="/task-12/assets/js/custom.js"></script>
 </body>
-
 </html>

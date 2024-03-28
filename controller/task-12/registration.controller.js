@@ -1,7 +1,7 @@
-const registration = require("express").Router();
+const combinedTask = require("express").Router();
 
-registration.get("/dashboard/task-12/registration", (req, res) => {
+combinedTask.get("/task-12/registration", (req, res) => {
     res.render('./task-12/html/registration.ejs');
 })
 
-module.exports = registration;
+module.exports = combinedTask;

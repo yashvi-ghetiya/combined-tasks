@@ -26,7 +26,7 @@ let userVerification = async () => {
 
     if (valid == true) {
 
-        var res = await fetch_POST_form("http://localhost:8080/dashboard/task-12/userVerification", "userverify");
+        var res = await fetch_POST_form("/task-12/userVerification", "userverify");
 
         var email=null;
         if (res['resultlength'] == 1) {
@@ -139,7 +139,7 @@ let setTimer = (type) => {
 
 let InsertPassword = async () => {
 
-    var result = await fetch_GET("http://localhost:8080/dashboard/task-12/fetch-users/" + code);
+    var result = await fetch_GET("/task-12/fetch-users/" + code);
     var expired = true;
     Object.keys(result).forEach((key) => {
         Object.keys(result[key]).forEach(key1 => {
@@ -171,12 +171,12 @@ let InsertPassword = async () => {
         })
     })
     if (expired == false) {
-        var res = await fetch_POST_form("http://localhost:8080/dashboard/task-12/activate-users/" + code, "userverify");
+        var res = await fetch_POST_form("/task-12/activate-users/" + code, "userverify");
         as.popup({
             title: "Your Password has been Updated successfully",
             closeBtn: false,
             buttons: [
-                { html: "Login", type: "Alert", click: function () { window.location.href = "http://localhost:8080/dashboard/task-12/login" } },
+                { html: "Login", type: "Alert", click: function () { window.location.href = "http://localhost:8080/task-12/login" } },
             ]
         });
     }
@@ -184,7 +184,7 @@ let InsertPassword = async () => {
 
 let activate_code = async (type) => {
     console.log("old"+code);
-    var res = await fetch_POST_json("http://localhost:8080/dashboard/task-12/activate-code", code);
+    var res = await fetch_POST_json("/task-12/activate-code", code);
     code = res['activationcode'];
     console.log("herer"+code);
     activate_code_updated = true;

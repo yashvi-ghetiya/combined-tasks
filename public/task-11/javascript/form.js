@@ -200,9 +200,7 @@ let loadData = async () => {
   th.innerHTML = "Lname";
   tr.appendChild(th);
 
-  var th = document.createElement('th');
-  th.innerHTML = "Delete";
-  tr.appendChild(th);
+
 
   var th = document.createElement('th');
   th.innerHTML = "Update";

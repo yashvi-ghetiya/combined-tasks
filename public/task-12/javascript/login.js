@@ -27,17 +27,14 @@ let validation =async () => {
    }
 
    if (valid == true) {
-    
-    var res = await fetch_POST_form("http://localhost:8080/dashboard/task-12/login", "login");
+    var res = await fetch_POST_form("/task-12/login", "login");
       if(res['userAccess']==true)
       {
-         console.log(res['token']);
          window.location.href='/dashboard';
       }
       else
       {
          as.popup({ title: "Re Enter Details!", text:res['err'], icon: "error" });
       }
-      
    }
 }

@@ -1,14 +1,17 @@
 const dynamic_grid = require("express").Router();
-const { executeQuery } = require('../../database_functions/executeQuery');
+const { executeQuery  } = require('../../database_functions/executeQuery');
 var recordsPerPage=10;
 var totalPages,currentPage,offset;
 var ordertype='';
+const { authentication,getUserId } = require("../../functions/authentication");
 
 dynamic_grid.get("/dashboard/task-7/display",async (req, res) => {
+    if(authentication(req))
+    {
   ordertype='';
   if(req.query['query']=='' || req.query['query']==null || req.query['query']==undefined || req.query['database']==undefined || req.query['database']==null || req.query['database']=='')
   {
-      res.render('./task-7/html/display',{error:"Please Enter Query in Text Box and Enter Database Name!",query:'',database:''});
+      res.render('./task-7/html/display',{ userId:getUserId(req),error:"Please Enter Query in Text Box and Enter Database Name!",query:'',database:''});
   }
   else
   {
@@ -43,16 +46,16 @@ dynamic_grid.get("/dashboard/task-7/display",async (req, res) => {
 
       
       if(result=="database"){
-          res.render('./task-7/html/display',{error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:''});
+          res.render('./task-7/html/display',{ userId:getUserId(req),error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:''});
       }
 
       else if(result==false){
-          res.render('./task-7/html/display',{error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:''});
+          res.render('./task-7/html/display',{ userId:getUserId(req),error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:''});
       }
 
       else if(totalPages < currentPage || currentPage < 1)
       {
-          res.render('./task-7/html/display',{error:"Opps Some Error occured",query:'',database:'',ordertype:''});
+          res.render('./task-7/html/display',{ userId:getUserId(req),error:"Opps Some Error occured",query:'',database:'',ordertype:''});
       }
 
       else{
@@ -60,7 +63,7 @@ dynamic_grid.get("/dashboard/task-7/display",async (req, res) => {
           {
               // console.log(result.slice(0,10));
               result = result.slice(offset,currentPage*recordsPerPage);
-              res.render('./task-7/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype})
+              res.render('./task-7/html/display',{ userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype})
           }
           else
           { 
@@ -87,10 +90,15 @@ dynamic_grid.get("/dashboard/task-7/display",async (req, res) => {
               }
               result = sort(result,req.query['orderby'],req.query['ordertype'])
               result = result.slice(offset,currentPage*recordsPerPage);
-              res.render('./task-7/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype,orderby:req.query['orderby']})
+              res.render('./task-7/html/display',{ userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype,orderby:req.query['orderby']})
             }
       }
   }
+}
+else
+    {
+        res.render('./task-12/html/login');
+    }
 });
 
 

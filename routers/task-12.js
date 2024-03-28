@@ -8,6 +8,7 @@ const updatePassword = require("../controller/task-12/update-password.controller
 const activateCode = require("../controller/task-12/activate-code.controller");
 const activateUser = require("../controller/task-12/activate-users.controller");
 
+
 const task_12 = (app) => {
    app.use(login);
    app.use(registration);
@@ -18,6 +19,7 @@ const task_12 = (app) => {
    app.use(updatePassword);
    app.use(activateUser);
    app.use(activateCode);
+   
 }
 
 module.exports = task_12;

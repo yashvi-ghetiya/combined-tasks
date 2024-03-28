@@ -1,20 +1,23 @@
 const searching = require("express").Router();
 var recordsPerPage=10;
 var totalPages,currentPage,offset;
-const { executeQuery } = require('../../database_functions/executeQuery');
+const { executeQuery  } = require('../../database_functions/executeQuery');
+const { authentication,getUserId } = require("../../functions/authentication");
 
 searching.get("/dashboard/task-8/display",async (req, res) => {
+    if(authentication(req))
+    {
     if(req.query['iddetails']=='Show data')
     {
         if(req.query['database']==undefined || req.query['database']==null || req.query['database']=='')
         {
-            res.render('./task-8/html/display',{error:"Please Enter Ids in Text Box",query:'',database:'',more:0});
+            res.render('./task-8/html/display',{userId:getUserId(req),error:"Please Enter Ids in Text Box",query:'',database:'',more:0});
         }
         else
         {
             var arr = req.query['database'];
-            var query = 'select * from student_master where sid in ('+arr+');';
-            let result = await executeQuery('studentMaster',query);
+            var query = 'select * from student_master_task1 where sid in ('+arr+');';
+            let result = await executeQuery('combinedTask',query);
            
            
             //Calculate Pages=============================================================================================
@@ -46,16 +49,16 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
     
             
             if(result=="database"){
-                res.render('./task-8/html/display',{error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:'',more:2});
             }
     
             else if(result==false){
-                res.render('./task-8/html/display',{error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:'',more:2});
             }
     
             else if(totalPages < currentPage || currentPage < 1)
             {
-                res.render('./task-8/html/display',{error:"Opps Some Error occured",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error occured",query:'',database:'',ordertype:'',more:2});
             }
     
             else{
@@ -63,7 +66,7 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
                 {
                     
                     result = result.slice(offset,currentPage*recordsPerPage);
-                    res.render('./task-8/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:'',more:0})
+                    res.render('./task-8/html/display',{userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:'',more:0})
                 }
                 else
                 { 
@@ -96,7 +99,7 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
                     }
                     result = sort(result,req.query['orderby'],req.query['ordertype'])
                     result = result.slice(offset,currentPage*recordsPerPage);
-                    res.render('./task-8/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype2,orderby:orderby2,more:0})
+                    res.render('./task-8/html/display',{userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype2,orderby:orderby2,more:0})
                 }
                 
     
@@ -112,14 +115,14 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
             {
                 if(req.query['bgroup']==undefined || req.query['bgroup']==null || req.query['bgroup']=='')
                 {
-                    res.render('./task-8/html/display',{error:"Please Enter firstname,lastname and blood group in Text Box",query:'',database:'',more:2});
+                    res.render('./task-8/html/display',{userId:getUserId(req),error:"Please Enter firstname,lastname and blood group in Text Box",query:'',database:'',more:2});
                 }
             }
         }
         else
         {
-            var query = 'select * from student_master where fname="'+req.query['fname']+'" '+req.query['op']+' lname="'+req.query['lname']+'" '+req.query['op']+' bgroup="'+req.query['bgroup']+'" ; ';
-            let result = await executeQuery('studentMaster',query);
+            var query = 'select * from student_master_task1 where fname="'+req.query['fname']+'" '+req.query['op']+' lname="'+req.query['lname']+'" '+req.query['op']+' bgroup="'+req.query['bgroup']+'" ; ';
+            let result = await executeQuery('combinedTask',query);
             if(result==undefined || result=='')
             {
                 result="No data Found";
@@ -155,21 +158,21 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
     
             
             if(result=="database"){
-                res.render('./task-8/html/display',{error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error in Database Connection!",query:'',database:'',ordertype:'',more:2});
             }
     
             else if(result==false){
-                res.render('./task-8/html/display',{error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error in Fetching Data from Table!",query:'',database:'',ordertype:'',more:2});
             }
     
             else if(totalPages < currentPage || currentPage < 1)
             {
-                res.render('./task-8/html/display',{error:"Opps Some Error occured",query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:"Opps Some Error occured",query:'',database:'',ordertype:'',more:2});
             }
 
             else if(typeof result == "string")
             {
-                res.render('./task-8/html/display',{error:result,query:'',database:'',ordertype:'',more:2});
+                res.render('./task-8/html/display',{userId:getUserId(req),error:result,query:'',database:'',ordertype:'',more:2});
             }
     
             else{
@@ -177,7 +180,7 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
                 {
                     
                     result = result.slice(offset,currentPage*recordsPerPage);
-                    res.render('./task-8/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:'',more:1,fname:req.query['fname'],lname:req.query['lname'],bgroup:req.query['bgroup'],op:req.query['op']})
+                    res.render('./task-8/html/display',{userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:'',more:1,fname:req.query['fname'],lname:req.query['lname'],bgroup:req.query['bgroup'],op:req.query['op']})
                 }
                 else
                 { 
@@ -210,7 +213,7 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
                     }
                     result = sort(result,req.query['orderby'],req.query['ordertype'])
                     result = result.slice(offset,currentPage*recordsPerPage);
-                    res.render('./task-8/html/display',{keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype2,orderby:orderby2,more:1,fname:req.query['fname'],lname:req.query['lname'],bgroup:req.query['bgroup'],op:req.query['op']})
+                    res.render('./task-8/html/display',{userId:getUserId(req),keys:result[0],results:result,page:currentPage,error:'',query:req.query['query'],lastpage:totalPages,database:req.query['database'],ordertype:ordertype2,orderby:orderby2,more:1,fname:req.query['fname'],lname:req.query['lname'],bgroup:req.query['bgroup'],op:req.query['op']})
                 }
                 
     
@@ -219,13 +222,17 @@ searching.get("/dashboard/task-8/display",async (req, res) => {
     }
     else if(req.query['moredetails']=='Show data1')
     {
-        res.render('./task-8/html/display',{query:'',database:'',more:1,fname:'',lname:'',bgroup:'',error:'Please Enter fname,lname,bgroup in Text Box'});
+        res.render('./task-8/html/display',{userId:getUserId(req),query:'',database:'',more:1,fname:'',lname:'',bgroup:'',error:'Please Enter fname,lname,bgroup in Text Box'});
     }
     else
     {
-        res.render('./task-8/html/display',{error:"Please Enter Ids in Text Box",query:'',database:'',more:0});
+        res.render('./task-8/html/display',{userId:getUserId(req),error:"Please Enter Ids in Text Box",query:'',database:'',more:0});
     }
-
+    }
+    else
+    {
+        res.render('./task-12/html/login');
+    }
 });
 
 module.exports = searching;

@@ -35,9 +35,6 @@ let validation = () => {
 
       insertData();
    }
-   else {
-
-   }
 
 }
 
@@ -70,7 +67,7 @@ let insertData = async () => {
 
    var email = document.getElementById('email').value;
    var contact = document.getElementById('mobile').value;
-   var result = await fetch_GET("http://localhost:8080/dashboard/task-12/fetch-users/" + email + "/" + contact);
+   var result = await fetch_GET("/task-12/fetch-users/" + email + "/" + contact);
    var userRegistered = false;
 
    Object.keys(result).forEach((key) => {
@@ -84,7 +81,7 @@ let insertData = async () => {
       as.popup({ title: "User Already Registered !", text: "Enter alternate Email or Contact", icon: "error" })
    }
    else {
-      var res = await fetch_POST_form("http://localhost:8080/dashboard/task-12/insert-users", "registration");
+      var res = await fetch_POST_form("/task-12/insert-users", "registration");
       document.getElementById("registration").innerHTML = null;
       as.popup({ title: "Registered !", text: "You are Registered", icon: "success" });
 
@@ -151,7 +148,7 @@ let validationPassword = async () => {
 
 let InsertPassword = async () => {
 
-   var result = await fetch_GET("http://localhost:8080/dashboard/task-12/fetch-users/" + code);
+   var result = await fetch_GET("/task-12/fetch-users/" + code);
    var expired = true;
    Object.keys(result).forEach((key) => {
       Object.keys(result[key]).forEach(key1 => {
@@ -183,19 +180,19 @@ let InsertPassword = async () => {
       })
    })
    if (expired == false) {
-      var res = await fetch_POST_form("http://localhost:8080/dashboard/task-12/activate-users/" + code, "registration");
+      var res = await fetch_POST_form("/task-12/activate-users/" + code, "registration");
       as.popup({
          title: "Congrats\nAccount has been Activated",
          closeBtn: false,
          buttons: [
-            { html: "Login", type: "Alert", click: function () { window.location.href = "http://localhost:8080/dashboard/task-12/login" } },
+            { html: "Login", type: "Alert", click: function () { window.location.href = "/task-12/login" } },
          ]
       });
    }
 }
 
 let activate_code = async () => {
-   var res = await fetch_POST_json("http://localhost:8080/dashboard/task-12/activate-code", code);
+   var res = await fetch_POST_json("/task-12/activate-code", code);
    code = res['activationcode'];
    activate_code_updated = true;
    setTimer(1);

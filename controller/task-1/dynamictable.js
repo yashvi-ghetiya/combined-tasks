@@ -4,7 +4,7 @@ const { authentication,getUserId } = require("../../functions/authentication");
 const { executeQuery} = require('../../database_functions/executeQuery');
 
 dynamictable.get("/dashboard/task-1/dynamictable", async(req, res) => {
-   if(authentication(req))
+   if(await authentication(req))
     {
         result = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         

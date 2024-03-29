@@ -4,7 +4,7 @@ const { authentication,getUserId } = require("../../functions/authentication");
 const { executeQuery} = require('../../database_functions/executeQuery');
 result.get("/dashboard/task-5/display", async(req, res) => {
 
-  if(authentication(req))
+  if(await authentication(req))
   {
     var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
    var con = mysql.createConnection({
@@ -97,7 +97,7 @@ result.get("/dashboard/task-5/display", async(req, res) => {
 });
 
 result.get('/dashboard/task-5/displayspecific', async(req, res) => {
-  if(authentication(req))
+  if(await authentication(req))
   {
     userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
    var con = mysql.createConnection({

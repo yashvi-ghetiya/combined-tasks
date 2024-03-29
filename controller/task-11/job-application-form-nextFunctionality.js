@@ -4,7 +4,7 @@ const { executeQueryInsert, executeQueryselect, executeQuery } = require('../../
 const { updateData } = require('../../functions/updatefile');
 
 job_application_form_nextFunctionality.get("/dashboard/task-11/insert", async (req, res) => {
-    if (authentication(req)) {
+    if (await authentication(req)) {
       var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         res.render('./task-11/html/form.ejs', { submitype: "insert", firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
     } else {
@@ -13,7 +13,7 @@ job_application_form_nextFunctionality.get("/dashboard/task-11/insert", async (r
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/display', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
       var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         res.render('./task-11/html/display', { firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
     } else {
@@ -22,7 +22,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/display', async f
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/fetch/:id', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
       var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         var query = "SELECT * from candidateMaster_task15 where canid = ? ;";
         var values = [req.params.id]
@@ -69,7 +69,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch/:id', async
 });
 
 job_application_form_nextFunctionality.post('/dashboard/task-11/post-data', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         const arr = req.body;
         var result1, result2;
         result1 = await insertData("combinedTask", `INSERT INTO candidateMaster_task15 
@@ -292,7 +292,7 @@ job_application_form_nextFunctionality.post('/dashboard/task-11/post-data', asyn
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/update/:id', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
       var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         res.render('./task-11/html/form.ejs', { submitype: 'update', firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
     }
@@ -302,7 +302,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/update/:id', asyn
 });
 
 job_application_form_nextFunctionality.post('/dashboard/task-11/updatedata/:id', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         updateData("combinedTask", req.body, req.params.id);
     } else {
         res.redirect('/task-12/login');
@@ -310,7 +310,7 @@ job_application_form_nextFunctionality.post('/dashboard/task-11/updatedata/:id',
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-data', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         var result = await executeQueryselect("combinedTask", `SELECT canid,fname,lname from candidateMaster_task15;`);
         res.send({ can: result });
     } else {
@@ -319,7 +319,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-data', asyn
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-state', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         var result = await executeQueryselect("combinedTask", "select id,name from states_task15");
         res.send({ result });
     } else {
@@ -328,7 +328,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-state', asy
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-city/:state', async function (req, res) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         var query = "select * from cities_task15 where state_id=" + req.params.state;
         var result = await executeQueryselect("combinedTask", query);
         res.send({ result });
@@ -338,7 +338,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-city/:state
 });
 
 async function insertData(database, query) {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         let result = await executeQueryInsert(database, query);
         return result;
     } else {

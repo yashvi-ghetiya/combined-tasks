@@ -6,7 +6,7 @@ var ordertype = '';
 const { authentication, getUserId } = require("../../functions/authentication");
 
 dynamic_grid.get("/dashboard/task-7/display", async (req, res) => {
-    if (authentication(req)) {
+    if (await authentication(req)) {
         var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         ordertype = '';
         if (req.query['query'] == '' || req.query['query'] == null || req.query['query'] == undefined || req.query['database'] == undefined || req.query['database'] == null || req.query['database'] == '') {

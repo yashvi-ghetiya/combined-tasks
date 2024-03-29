@@ -3,7 +3,7 @@ var mysql = require('mysql');
 const { authentication,getUserId  } = require("../../functions/authentication");
 const { executeQuery} = require('../../database_functions/executeQuery');
 result.get("/dashboard/task-6/display", async(req, res) => {
-  if(authentication(req))
+  if(await authentication(req))
   {
 
     var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);

@@ -3,7 +3,7 @@ async function displaydata()
     var result = await fetch('https://jsonplaceholder.typicode.com/posts/'+window.location.pathname.split("/")[4])
     result = await result.json();
 
-    console.log(result);
+    
     var x = document.createElement("TABLE");
     x.setAttribute("id", "customers");
     document.getElementById("data").appendChild(x);

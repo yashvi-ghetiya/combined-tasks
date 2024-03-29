@@ -5,17 +5,19 @@ const { executeQuery  } = require('../../database_functions/executeQuery');
 searching_by_delimiter.get("/dashboard/task-9/display",async (req, res) => {
     if(authentication(req))
     {
-    res.render('./task-9/html/display',{userId:getUserId(req),keys:'',results:'',error:'Enter values'})
+        var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+    res.render('./task-9/html/display',{firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],keys:'',results:'',error:'Enter values'})
     }
     else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
 searching_by_delimiter.post("/dashboard/task-9/display",async (req, res) => {
     if(authentication(req))
     {
+        var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
     var data=req.body.clause;
    
     var query="select * from student_master_task1 where";
@@ -81,15 +83,15 @@ searching_by_delimiter.post("/dashboard/task-9/display",async (req, res) => {
         }
     }
     query+=' ;';
-    console.log(query);
+    
    
            
     let result = await executeQuery('combinedTask',query);
-    res.render('./task-9/html/display',{userId:getUserId(req),keys:result[0],results:result,error:''});
+    res.render('./task-9/html/display',{firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],keys:result[0],results:result,error:''});
 }
 else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 

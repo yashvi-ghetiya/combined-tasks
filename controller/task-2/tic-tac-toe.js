@@ -1,13 +1,15 @@
 
 const tic_tac_toe = require("express").Router();
 const { authentication ,getUserId } = require("../../functions/authentication");
-tic_tac_toe.get("/dashboard/task-2/tic-tac-toe", (req, res) => {
+const { executeQuery} = require('../../database_functions/executeQuery');
+tic_tac_toe.get("/dashboard/task-2/tic-tac-toe", async(req, res) => {
    if (authentication(req)) {
-      res.render('./task-2/tic-tac-toe.ejs',{userId:getUserId(req)});
+    result = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+    res.render('./task-2/tic-tac-toe.ejs',{firstname:result[0]['firstname'],lastname:result[0]['lastname']});
    }
    else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 

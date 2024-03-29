@@ -1,15 +1,18 @@
 
 const dynamictable = require("express").Router();
 const { authentication,getUserId } = require("../../functions/authentication");
-dynamictable.get("/dashboard/task-1/dynamictable", (req, res) => {
+const { executeQuery} = require('../../database_functions/executeQuery');
+
+dynamictable.get("/dashboard/task-1/dynamictable", async(req, res) => {
    if(authentication(req))
     {
-        console.log(getUserId(req));
-        res.render('./task-1/dynamictable.ejs',{userId:getUserId(req)});
+        result = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+        
+        res.render('./task-1/dynamictable.ejs',{firstname:result[0]['firstname'],lastname:result[0]['lastname']});
     }
     else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 

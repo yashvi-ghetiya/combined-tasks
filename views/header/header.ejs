@@ -1,56 +1,69 @@
-<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header" style="display: flex;flex-direction: column;">
-       
-        <a class="navbar-brand" href="index.html" id="customer-name">User Id : <%= userId %></a>
-        <a class="navbar-brand" href="index.html">Log Out</a>
-    </div>
-</nav>
-
-<nav class="navbar-default navbar-side" role="navigation">
-    <div class="sidebar-collapse">
-        <ul class="nav" id="main-menu">
-            <li>
-                <a href="/dashboard/task-1/dynamictable">Task-1 : Dynamic Table</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-2/tic-tac-toe">Task-2 : Tic - Tac - Toe</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-3/kuku-kube">Task-3 : Kuku - Kube</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-4/javascript-events">Task-4 : Javascript Events</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-5/display">Task-5 : Student Result</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-6/display">Task-6 : Student Attendance</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-7/display">Task-7 : Dynamic Grid</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-8/display">Task-8 : Searching</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-9/display">Task-9 : Searching By Delimiter</a>
-            </li>
-            <li>
-                <a href="/dashboard/task-10/display">Task-10 : Fetch API (JSON Placeholder)</a>
-            </li>
-            <li>
-                <a href="#"  class="active-menu-top">Task-11 : Employee CRUD (Using AJAX/Fetch API) <span class="fa arrow"></span></a>
-                 <ul class="nav nav-second-level  collapse in">
-                    <li>
-                        <a href="/dashboard/task-11/insert">Insert Data</a>
-                    </li>
-                    <li>
-                        <a href="/dashboard/task-11/display">Display Data</a>
-                    </li>
-                </ul>
-            </li>
-             
-        </ul>
-    </div>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/task-12/javascript/logout.js"></script>
+    <script src="/task-12/javascript/fetchAPI_GET.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header" style="display: flex;flex-direction: column;">
+           
+            <a class="navbar-brand" href="index.html" id="customer-name"> <%= firstname %> <%= lastname %></a>
+            <!-- <a class="navbar-brand" onclick="logout()">Log Out</a> -->
+            <a class="navbar-brand" href="/task-12/logout">Log Out</a>
+        </div>
+    </nav>
+    
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a href="/dashboard/task-1/dynamictable">Task-1 : Dynamic Table</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-2/tic-tac-toe">Task-2 : Tic - Tac - Toe</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-3/kuku-kube">Task-3 : Kuku - Kube</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-4/javascript-events">Task-4 : Javascript Events</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-5/display">Task-5 : Student Result</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-6/display">Task-6 : Student Attendance</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-7/display">Task-7 : Dynamic Grid</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-8/display">Task-8 : Searching</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-9/display">Task-9 : Searching By Delimiter</a>
+                </li>
+                <li>
+                    <a href="/dashboard/task-10/display">Task-10 : Fetch API (JSON Placeholder)</a>
+                </li>
+                <li>
+                    <a href="#"  class="active-menu-top">Task-11 : Employee CRUD (Using AJAX/Fetch API) <span class="fa arrow"></span></a>
+                     <ul class="nav nav-second-level  collapse in">
+                        <li>
+                            <a href="/dashboard/task-11/insert">Insert Data</a>
+                        </li>
+                        <li>
+                            <a href="/dashboard/task-11/display">Display Data</a>
+                        </li>
+                    </ul>
+                </li>
+                 
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

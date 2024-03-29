@@ -23,7 +23,7 @@ login.post("/task-12/login", async (req, res) => {
       if (password == result[0]['password']) {
 
          const token = jwt.sign({ userId: result[0]['id'] }, process.env.token_secret_key);
-         res.cookie("token",{token:token},{expire: 1 + Date.now()});
+         res.cookie("token",{token:token},{expireIn:"1h"});
         
          res.send({userAccess: true });
       }

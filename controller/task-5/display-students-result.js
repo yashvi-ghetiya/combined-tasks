@@ -1,10 +1,12 @@
 const result = require("express").Router();
 var mysql = require('mysql');
 const { authentication,getUserId } = require("../../functions/authentication");
-result.get("/dashboard/task-5/display", (req, res) => {
+const { executeQuery} = require('../../database_functions/executeQuery');
+result.get("/dashboard/task-5/display", async(req, res) => {
 
   if(authentication(req))
   {
+    var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
    var con = mysql.createConnection({
       host: "localhost",
       user: "root",
@@ -71,12 +73,16 @@ result.get("/dashboard/task-5/display", (req, res) => {
             left join exam_master_task1 on exam_master_task1.emId=exam_result_task1.examtype
             group by student_master_task1.sid `+" LIMIT " + startoffset + "," + total + ";", function (err, result, fields) {
               if (err) throw err;
+  
               if (req.query["page"] == undefined) {
-                res.render("./task-5/display", {userId:getUserId(req), page: 1, result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
+               
+        
+                
+                res.render("./task-5/display", {firstname:userName[0]['firstname'],lastname:userName[0]['lastname'], page: 1, result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
               }
               else {
 
-                res.render("./task-5/display", {userId:getUserId(req), page: req.query["page"], result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
+                res.render("./task-5/display", {firstname:userName[0]['firstname'],lastname:userName[0]['lastname'], page: req.query["page"], result: result, totalpages: totalpages, orderby: undefined, ordertype: undefined, month: month, year: year });
               }
 
             });
@@ -86,13 +92,14 @@ result.get("/dashboard/task-5/display", (req, res) => {
   }
   else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
 result.get('/dashboard/task-5/displayspecific', async(req, res) => {
   if(authentication(req))
   {
+    userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
    var con = mysql.createConnection({
      host: "localhost",
      user: "root",
@@ -113,7 +120,7 @@ result.get('/dashboard/task-5/displayspecific', async(req, res) => {
        if (err) throw err;
 
        totalpages = Math.ceil((result[0].totalrows) / total);
-       console.log(totalpages);
+       
        if (Number(req.query["page"]) > totalpages || Number(req.query["page"]) <= 0) {
          res.render("./general-error/error.ejs");
        }
@@ -288,8 +295,8 @@ result.get('/dashboard/task-5/displayspecific', async(req, res) => {
                        left join subject_master_task1 on subject_master_task1.subid=exam_result_task1.subid
                        where exam_result_task1.sid=? group by subject_master_task1.subid;`;
                        con.query(query4, values, function (err, result7, fields){
-                         console.log(result7[0])
-                         res.render("./task-5/displayspecific", { userId:getUserId(req),page: req.query["page"], result1 : result1,result2 : result2,result3 : result3,result4 : result4,result5 : result5,result6 : result6,result7 : result7});
+                         
+                         res.render("./task-5/displayspecific", { firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],page: req.query["page"], result1 : result1,result2 : result2,result3 : result3,result4 : result4,result5 : result5,result6 : result6,result7 : result7});
 
                        });
                      });
@@ -304,7 +311,7 @@ result.get('/dashboard/task-5/displayspecific', async(req, res) => {
   }
   else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
  });
 

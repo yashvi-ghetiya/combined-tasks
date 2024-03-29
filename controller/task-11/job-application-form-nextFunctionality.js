@@ -1,26 +1,29 @@
 const job_application_form_nextFunctionality = require("express").Router();
-const { authentication,getUserId  } = require("../../functions/authentication");
-const { executeQueryInsert, executeQueryselect } = require('../../database_functions/executeQuery');
+const { authentication, getUserId } = require("../../functions/authentication");
+const { executeQueryInsert, executeQueryselect, executeQuery } = require('../../database_functions/executeQuery');
 const { updateData } = require('../../functions/updatefile');
 
 job_application_form_nextFunctionality.get("/dashboard/task-11/insert", async (req, res) => {
     if (authentication(req)) {
-        res.render('./task-11/html/form.ejs', { submitype: "insert",userId:getUserId(req) });
+      var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+        res.render('./task-11/html/form.ejs', { submitype: "insert", firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/display', async function (req, res) {
     if (authentication(req)) {
-        res.render('./task-11/html/display',{userId:getUserId(req)});
+      var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+        res.render('./task-11/html/display', { firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/fetch/:id', async function (req, res) {
     if (authentication(req)) {
+      var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
         var query = "SELECT * from candidateMaster_task15 where canid = ? ;";
         var values = [req.params.id]
         var can = await executeQueryselect("combinedTask", query, values);
@@ -61,7 +64,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch/:id', async
             work
         })
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -85,7 +88,7 @@ job_application_form_nextFunctionality.post('/dashboard/task-11/post-data', asyn
     '${arr['dob']}',
     '${arr['add1']}',
     '${arr['add2']}')`);
-        console.log(result1, "insert ma");
+        
         if (result1 == "database") {
             console.log("error in db connection");
         }
@@ -284,14 +287,17 @@ job_application_form_nextFunctionality.post('/dashboard/task-11/post-data', asyn
 
         res.json({ key: "error" });
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
 job_application_form_nextFunctionality.get('/dashboard/task-11/update/:id', async function (req, res) {
-    if (authentication(req)) { res.render('./task-11/html/form.ejs', { submitype: 'update',userId:getUserId(req) }); }
+    if (authentication(req)) {
+      var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+        res.render('./task-11/html/form.ejs', { submitype: 'update', firstname:userName[0]['firstname'],lastname:userName[0]['lastname']});
+    }
     else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -299,7 +305,7 @@ job_application_form_nextFunctionality.post('/dashboard/task-11/updatedata/:id',
     if (authentication(req)) {
         updateData("combinedTask", req.body, req.params.id);
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -308,7 +314,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-data', asyn
         var result = await executeQueryselect("combinedTask", `SELECT canid,fname,lname from candidateMaster_task15;`);
         res.send({ can: result });
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -317,7 +323,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-state', asy
         var result = await executeQueryselect("combinedTask", "select id,name from states_task15");
         res.send({ result });
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -327,7 +333,7 @@ job_application_form_nextFunctionality.get('/dashboard/task-11/fetch-city/:state
         var result = await executeQueryselect("combinedTask", query);
         res.send({ result });
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 
@@ -336,7 +342,7 @@ async function insertData(database, query) {
         let result = await executeQueryInsert(database, query);
         return result;
     } else {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 }
 

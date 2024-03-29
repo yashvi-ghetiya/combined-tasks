@@ -155,7 +155,7 @@ let InsertPassword = async () => {
             var current_time = new Date();
             var difference = ((current_time - create_time) / 1000).toString().split('.')[0];
             var difference = Number(difference);
-            console.log(difference);
+            
             if (difference > 20) {
                 as.popup({
                     title: "Opps\nLink has been Expired",
@@ -183,10 +183,10 @@ let InsertPassword = async () => {
 }
 
 let activate_code = async (type) => {
-    console.log("old"+code);
+    
     var res = await fetch_POST_json("/task-12/activate-code", code);
     code = res['activationcode'];
-    console.log("herer"+code);
+    
     activate_code_updated = true;
     if(type==1)
     {

@@ -85,6 +85,7 @@ function fixStepIndicator(n) {
 function onloadfun() {
 
   //fetch-state
+  
   let url = "/dashboard/task-11/fetch-state/";
   fetch(url).then(response => response.json()).then(result => {
 
@@ -98,6 +99,7 @@ function onloadfun() {
     option.selected = true;
     state.appendChild(option);
 
+   
     Object.keys(result).forEach(key => {
 
       Object.keys(result[key]).forEach(key1 => {

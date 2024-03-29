@@ -264,7 +264,7 @@ async function tech(database, arr, id) {
        ('${id}',
        'php',
        '${arr['php']}')`);
-       console.log("yes");
+       
   }
   if(arr['mysql']!=undefined)
   {
@@ -274,7 +274,7 @@ async function tech(database, arr, id) {
        ('${id}',
        'mysql',
        '${arr['mysql']}')`);
-       console.log("yes");
+       
   }
   if(arr['laravel']!=undefined)
   {
@@ -284,7 +284,7 @@ async function tech(database, arr, id) {
        ('${id}',
        'laravel',
        '${arr['laravel']}')`);
-       console.log("yes");
+       
   }
   if(arr['oracle']!=undefined)
   {
@@ -294,7 +294,7 @@ async function tech(database, arr, id) {
        ('${id}',
        'oracle',
        '${arr['oracle']}')`);
-       console.log("yes");
+       
   }
 }
 

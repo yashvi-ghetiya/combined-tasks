@@ -47,7 +47,7 @@ async function executeQueryInsert(db,query)
                         reject(err);
                     }
                     else{
-                        console.log(result.insertId);
+                        
                         resolve(result.insertId);
                     }
                 });

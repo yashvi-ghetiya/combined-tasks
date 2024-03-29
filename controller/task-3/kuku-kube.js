@@ -1,13 +1,15 @@
 
 const kuku_kube = require("express").Router();
 const { authentication,getUserId  } = require("../../functions/authentication");
-kuku_kube.get("/dashboard/task-3/kuku-kube", (req, res) => {
+const { executeQuery} = require('../../database_functions/executeQuery');
+kuku_kube.get("/dashboard/task-3/kuku-kube", async(req, res) => {
    if (authentication(req)) {
-      res.render('./task-3/kuku-kube.ejs',{userId:getUserId(req)});
+    result = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
+    res.render('./task-3/kuku-kube.ejs',{firstname:result[0]['firstname'],lastname:result[0]['lastname']});
    }
    else
     {
-        res.render('./task-12/html/login');
+        res.redirect('/task-12/login');
     }
 });
 

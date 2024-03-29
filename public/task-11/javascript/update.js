@@ -52,7 +52,7 @@ let basic_details = (result) => {
     let city = document.getElementsByName("cityop");
     
     for (var i = 0; i < city.length; i++) {
-       console.log(result['can'][0]['city'],city[i].value );
+       
         if (city[i].value == result['can'][0]['city']) {
             city[i].selected = true;
         }

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { executeQuery  } = require('../database_functions/executeQuery');
-let authentication = (req) => {
+const { executeQuery} = require('../database_functions/executeQuery');
+
+let authentication = async(req,res) => {
     if (req.cookies['token'] == null || req.cookies['token'] == undefined) {
         return false;
     }
@@ -8,6 +9,7 @@ let authentication = (req) => {
 }
 let getUserId = (req) => {
     const token = req.cookies['token']['token'];
+    
     const decoded = jwt.verify(token,process.env.token_secret_key);
     return decoded.userId;
 }

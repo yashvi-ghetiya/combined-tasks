@@ -31,6 +31,24 @@ let validation = () => {
       mobile.style.background = "#ffcccc";
    }
 
+   const validEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g; 
+   if(!email.value.match(validEmailRegex) && email.value!=''){        
+      document.getElementById('emailvalidation').innerHTML="Enter email in valid format";
+      document.getElementById('emailvalidation').style.color="red";
+      email.style.border = "2px solid #ffcccc";
+      email.style.background = "#ffcccc";
+      valid=false;
+  }  
+
+  const validCnoRegex = /^[0-9]{10}$/g;
+  if(!mobile.value.match(validCnoRegex) && mobile.value!=''){        
+     document.getElementById('contactvalidation').innerHTML="Enter contact in valid format";
+     document.getElementById('contactvalidation').style.color="red";
+     email.style.border = "2px solid #ffcccc";
+     email.style.background = "#ffcccc";
+     valid=false;
+ }  
+
    if (valid == true) {
 
       insertData();

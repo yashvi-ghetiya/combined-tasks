@@ -5,9 +5,9 @@ function DBConnect(db)
 {
     let res = new Promise((resolve,reject)=>{
             con = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "root",
+                host: process.env.host,
+                user: process.env.mysql_user,
+                password: process.env.mysql_password,
                 database: db
             })
             con.connect((err)=>{

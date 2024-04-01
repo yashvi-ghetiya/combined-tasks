@@ -295,7 +295,7 @@ result.get('/dashboard/task-5/displayspecific', async(req, res) => {
                        left join subject_master_task1 on subject_master_task1.subid=exam_result_task1.subid
                        where exam_result_task1.sid=? group by subject_master_task1.subid;`;
                        con.query(query4, values, function (err, result7, fields){
-                         
+                         console.log(result2);
                          res.render("./task-5/displayspecific", { firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],page: req.query["page"], result1 : result1,result2 : result2,result3 : result3,result4 : result4,result5 : result5,result6 : result6,result7 : result7});
 
                        });

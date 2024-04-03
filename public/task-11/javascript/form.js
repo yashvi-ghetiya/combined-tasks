@@ -86,7 +86,7 @@ function onloadfun() {
 
   //fetch-state
   
-  let url = "/dashboard/task-11/fetch-state/";
+  let url = "/dashboard/t11-fetch-state";
   fetch(url).then(response => response.json()).then(result => {
 
     var state = document.getElementById('state');
@@ -127,7 +127,7 @@ function onloadfun() {
   if(submitype == 'update')
   {
     let id = window.location.href.split("/").pop();
-    let url = "/dashboard/task-11/fetch/" + id;
+    let url = "/dashboard/t11-fetch/" + id;
     fetch(url).then(response => response.json()).then(result => {
         fillfields(result);
     })
@@ -135,7 +135,7 @@ function onloadfun() {
 }
 
 let stateSeleted = () => {
-  let url = "/dashboard/task-11/fetch-city/" + document.getElementById('state').value;
+  let url = "/dashboard/t11-fetch-city/" + document.getElementById('state').value;
   fetch(url).then(response => response.json()).then(result => {
     var city = document.getElementById('city');
     city.innerHTML = null;
@@ -154,7 +154,7 @@ let stateSeleted = () => {
 
 let submitData = async () => {
 
-  let url = "http://localhost:8080/dashboard/task-11/post-data";
+  let url = "/dashboard/t11-post-data";
 
   let form = document.getElementById("regForm");
 
@@ -168,6 +168,7 @@ let submitData = async () => {
     }
   });
 
+  
   res1 = await res1.json();
 
   var alert = document.getElementById('alert');
@@ -185,7 +186,7 @@ let clearform = () => {
 }
 
 let loadData = async () => {
-  let url = "/dashboard/task-11/fetch-data";
+  let url = "/dashboard/t11-fetch-data";
   var table = document.getElementById('candidates');
   table.innerHTML = null;
   var tr = document.createElement('tr');
@@ -246,7 +247,7 @@ let loadData = async () => {
 
 let updateData =async() => {
   var id = window.location.href.split('/').pop();
-  let url = "http://localhost:8080/dashboard/task-11/updatedata/"+id;
+  let url = "./dashboard/t11-updatedata/"+id;
 
   let form = document.getElementById("regForm");
 

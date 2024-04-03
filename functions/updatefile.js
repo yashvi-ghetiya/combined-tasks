@@ -13,11 +13,11 @@ let updateData = async (database, arr, id) => {
 
 async function basic_details(database, arr, id) {
   //basic detail
-  var query = `UPDATE candidateMaster
+  let query = `UPDATE candidateMaster
    SET fname = ?, lname = ?,designation = ?,city = ?,state = ?,email = ?,phoneNo = ?,zipCode = ?,gender = ?,relationship = ?,dob = ?,add1 = ?,add2 = ?
    WHERE canid = ?;`;
-  var values = [arr['fname'], arr['lname'], arr['desig'], arr['city'], arr['state'], arr['email'], arr['contact'], arr['zipcode'], arr['gender'], arr['relationship'], arr['dob'], arr['add1'], arr['add2'], id];
-  let result = await executeQueryupdate(database, query, values);
+  let values = [arr['fname'], arr['lname'], arr['desig'], arr['city'], arr['state'], arr['email'], arr['contact'], arr['zipcode'], arr['gender'], arr['relationship'], arr['dob'], arr['add1'], arr['add2'], id];
+  await executeQueryupdate(database, query, values);
 
 }
 
@@ -26,8 +26,8 @@ async function edu(database, arr, id) {
   values = [id]
   result = await executeQueryselect(database, query, values);
 
-  var len = 0;
-  for (var i = 0; i < arr['edu'].length; i++) {
+  let len = 0;
+  for (let i = 0; i < arr['edu'].length; i++) {
     if (arr['edu'][i] == '') {
       break;
     }
@@ -36,27 +36,27 @@ async function edu(database, arr, id) {
   }
 
   if (result.length == len) {
-    for (var i = 0; i < len; i++) {
-      var query = `UPDATE educationDetails
+    for (let i = 0; i < len; i++) {
+      let query = `UPDATE educationDetails
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
-      var values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
+      let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
       await executeQueryupdate(database, query, values);
 
     }
   }
   else if (result.length < len) {
 
-    for (var i = 0; i < result.length; i++) {
-      var query = `UPDATE educationDetails
+    for (let i = 0; i < result.length; i++) {
+      let query = `UPDATE educationDetails
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
-      var values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
+      let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
       await executeQueryupdate(database, query, values);
     }
-    for (var i = result.length; i < len; i++) {
+    for (let i = result.length; i < len; i++) {
 
-      var query = `INSERT INTO educationDetails 
+      let query = `INSERT INTO educationDetails 
         (canid,degree,board_courseName,passingYear,percentage) 
         VALUES 
         ('${id}',
@@ -70,17 +70,17 @@ async function edu(database, arr, id) {
   }
   else if (result.length > len) {
 
-    for (var i = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
 
-      var query = `UPDATE educationDetails
+      let query = `UPDATE educationDetails
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
-      var values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
+      let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
       await executeQueryupdate(database, query, values);
     }
-    for (var i = len; i < result.length; i++) {
+    for (let i = len; i < result.length; i++) {
 
-      var query = `delete from educationDetails where eid=` + arr['eduid'][i];
+      let query = `delete from educationDetails where eid=` + arr['eduid'][i];
       await executeQuery(database, query);
 
     }
@@ -92,8 +92,8 @@ async function work(database, arr, id) {
   values = [id]
   result = await executeQueryselect(database, query, values);
 
-  var len = 0;
-  for (var i = 0; i < arr['company'].length; i++) {
+  let len = 0;
+  for (let i = 0; i < arr['company'].length; i++) {
     if (arr['company'][i] == '') {
       break;
     }
@@ -102,26 +102,26 @@ async function work(database, arr, id) {
 
   if (result.length == len) {
     
-    for (var i = 0; i < len; i++) {
-      var query = `UPDATE workExperience
+    for (let i = 0; i < len; i++) {
+      let query = `UPDATE workExperience
         SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
         WHERE wid = ? ;`;
-      var values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
-      var result = await executeQueryupdate(database, query, values);
+      let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
+      let result = await executeQueryupdate(database, query, values);
     }
   }
   else if (result.length < len) {
     
-    for (var i = 0; i < result.length; i++) {
-      var query = `UPDATE workExperience
+    for (let i = 0; i < result.length; i++) {
+      let query = `UPDATE workExperience
       SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
       WHERE wid = ? ;`;
-      var values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
+      let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
       await executeQueryupdate(database, query, values);
     }
-    for (var i = result.length; i < len; i++) {
+    for (let i = result.length; i < len; i++) {
 
-      var query = `INSERT INTO workExperience 
+      let query = `INSERT INTO workExperience 
         (canid,companyName,designation,fromDate,toDate) 
         VALUES 
         ('${id}',
@@ -135,19 +135,19 @@ async function work(database, arr, id) {
   }
   else if (result.length > len) {
    
-    for (var i = 0; i < len; i++) {
-      var query = `UPDATE workExperience
+    for (let i = 0; i < len; i++) {
+      let query = `UPDATE workExperience
       SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
       WHERE wid = ? ;`;
-      var values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
+      let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
       await executeQueryupdate(database, query, values);
     }
-    for (var i = len; i < result.length; i++) {
+    for (let i = len; i < result.length; i++) {
     
       if(arr['workid'][i]==undefined)
       {
        
-        var query = `delete from workExperience where wid >` + arr['workid'][i-1];
+        let query = `delete from workExperience where wid >` + arr['workid'][i-1];
         
         
         await executeQuery(database, query);
@@ -157,7 +157,7 @@ async function work(database, arr, id) {
       else
       {
         
-        var query = `delete from workExperience where wid=` + arr['workid'][i];
+        let query = `delete from workExperience where wid=` + arr['workid'][i];
         await executeQuery(database, query);
       }
       
@@ -170,8 +170,8 @@ async function ref(database, arr, id) {
   values = [id]
   result = await executeQueryselect(database, query, values);
  
-  var len = 0;
-  for (var i = 0; i < arr['refname'].length; i++) {
+  let len = 0;
+  for (let i = 0; i < arr['refname'].length; i++) {
     if (arr['refname'][i] == '') {
       break;
     }
@@ -181,27 +181,27 @@ async function ref(database, arr, id) {
  
   if (result.length == len) {
  
-    for (var i = 0; i < len; i++) {
-      var query = `UPDATE referenceContact
+    for (let i = 0; i < len; i++) {
+      let query = `UPDATE referenceContact
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
-      var values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
-      var result = await executeQueryupdate(database, query, values);
+      let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
+      let result = await executeQueryupdate(database, query, values);
       
     }
   }
   else if (result.length < len) {
    
-    for (var i = 0; i < result.length; i++) {
-      var query = `UPDATE referenceContact
+    for (let i = 0; i < result.length; i++) {
+      let query = `UPDATE referenceContact
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
-        var values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
+        let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
       await executeQueryupdate(database, query, values);
     }
-    for (var i = result.length; i < len; i++) {
+    for (let i = result.length; i < len; i++) {
 
-      var query = `INSERT INTO referenceContact 
+      let query = `INSERT INTO referenceContact 
         (canid,name,contactNo,relation) 
         VALUES 
         ('${id}',
@@ -214,19 +214,19 @@ async function ref(database, arr, id) {
   }
   else if (result.length > len) {
    
-    for (var i = 0; i < len; i++) {
-      var query = `UPDATE referenceContact
+    for (let i = 0; i < len; i++) {
+      let query = `UPDATE referenceContact
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
-        var values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
+        let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
       await executeQueryupdate(database, query, values);
       
     }
-    for (var i = len; i < result.length; i++) {
+    for (let i = len; i < result.length; i++) {
     
       if(arr['workid'][i]==undefined)
       {
-        var query = `delete from referenceContact where rid >` + arr['rid'][i-1];
+        let query = `delete from referenceContact where rid >` + arr['rid'][i-1];
         
         await executeQuery(database, query);
         break;
@@ -235,7 +235,7 @@ async function ref(database, arr, id) {
       else
       {
         
-        var query = `delete from referenceContact where rid=` + arr['rid'][i];
+        let query = `delete from referenceContact where rid=` + arr['rid'][i];
         await executeQuery(database, query);
       }
       
@@ -245,15 +245,15 @@ async function ref(database, arr, id) {
 
 async function pref(database, arr, id) {
  
-  var query = `UPDATE preference
+  let query = `UPDATE preference
    SET preferedLocation = ?,noticePeriod = ?,expectedCTC = ?,currentCTC = ?,department = ?
    WHERE canid = ?;`;
-  var values = [arr["preferedlocation"].toString(),arr['noticeperiod'],arr['expectedCTC'],arr['currentCTC'],arr['department'], id];
+  let values = [arr["preferedlocation"].toString(),arr['noticeperiod'],arr['expectedCTC'],arr['currentCTC'],arr['department'], id];
   let result = await executeQueryupdate(database, query, values);
 }
 
 async function tech(database, arr, id) {
-  var query = `delete from technologyYouKnow where canid=` + id;
+  let query = `delete from technologyYouKnow where canid=` + id;
   await executeQuery(database, query);
 
   if(arr['php']!=undefined)
@@ -300,14 +300,14 @@ async function tech(database, arr, id) {
 
 async function lang(database,arr,id)
 {
-  var arr1 =['canRead','canWrite','canSpeak'];
-      var arr2=[];
-      var query = `delete from languageKnown where canid=` + id;
+  let arr1 =['canRead','canWrite','canSpeak'];
+      let arr2=[];
+      let query = `delete from languageKnown where canid=` + id;
       await executeQuery(database, query);
       
       if(arr['hindi']!=undefined)
       {
-         for(var i=0;i<3;i++)
+         for(let i=0;i<3;i++)
          {
             if(arr1.includes(arr['hindi'][i]))
             {
@@ -331,7 +331,7 @@ async function lang(database,arr,id)
       arr2=[];
       if(arr['english']!=undefined)
       {
-         for(var i=0;i<3;i++)
+         for(let i=0;i<3;i++)
          {
             if(arr1.includes(arr['english'][i]))
             {
@@ -355,7 +355,7 @@ async function lang(database,arr,id)
       arr2=[];
       if(arr['gujarati']!=undefined)
       {
-         for(var i=0;i<3;i++)
+         for(let i=0;i<3;i++)
          {
             if(arr1.includes(arr['gujarati'][i]))
             {

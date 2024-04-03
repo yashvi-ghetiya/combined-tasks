@@ -106,7 +106,7 @@ async function fetchData(result,type,currentpage)
         element.className = "button";
         
         element.addEventListener("click",()=>{
-          window.location.href='/dashboard/task-10/display/'+items.id;
+          window.location.href='/dashboard/t10-display/'+items.id;
         });
        
         z4.appendChild(element);

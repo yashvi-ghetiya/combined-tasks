@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <link href="/task-12/css/registration.css" rel="stylesheet">
+    <script src="/task-12/javascript/registration.js"></script>
+    <script src="/task-12/javascript/fetchAPI_POST.js"></script>
+    <script src="/task-12/javascript/fetchAPI_GET.js"></script>
+    <script src='https://asbros.github.io/popup.js/popup.js'></script>
+</head>
+
+<body>
+   
+    <div class="main" id="main">
+        <h1>Yashvi Ghetiya<br>21 March 2024<br>24DEV038</h1>
+        <form id="registration">
+            <h2>Registration Form</h2>
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" />
+
+            <label for="lastname">Last Name:</label>
+            <input type="text"id="lastname" name="lastname" />
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" />
+            <label id="emailvalidation" style="font-size: 13px;"></label>
+
+            <label for="mobile">Contact:</label>
+            <input type="text" id="mobile" name="mobile" />
+            <label id="contactvalidation" style="font-size: 13px;"></label>
+    
+            <p class="button" onclick="validation()">Register</p>
+            <div onclick="window.location.href='/login'" style="display: flex;justify-content: center;"><h5>Already have an Account?<h5 class="singup">&nbsp;Login</h5></h5></div>
+        </form>
+    </div>
+</body>
+
+</html>

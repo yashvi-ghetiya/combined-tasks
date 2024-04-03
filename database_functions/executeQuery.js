@@ -1,26 +1,22 @@
 const { DBConnect } = require('./dbConnect');
 
-async function executeQuery(db,query)
-{
+async function executeQuery(db, query) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        resolve(result);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -30,28 +26,24 @@ async function executeQuery(db,query)
     }
 }
 
-async function executeQueryInsert(db,query)
-{
+async function executeQueryInsert(db, query) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        
-                        resolve(result.insertId);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+
+                    resolve(result.insertId);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -61,27 +53,23 @@ async function executeQueryInsert(db,query)
     }
 }
 
-async function executeQueryselect(db,query,values)
-{
+async function executeQueryselect(db, query, values) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, values, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        resolve(result);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, values, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -91,27 +79,23 @@ async function executeQueryselect(db,query,values)
     }
 }
 
-async function executeQueryupdate(db,query,values)
-{
+async function executeQueryupdate(db, query, values) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, values, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        resolve(result.affectedRows);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, values, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result.affectedRows);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -121,27 +105,23 @@ async function executeQueryupdate(db,query,values)
     }
 }
 
-async function executeQueryUpdate_simpleQuery(db,query)
-{
+async function executeQueryUpdate_simpleQuery(db, query) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        resolve([result.insertId,result.affectedRows]);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve([result.insertId, result.affectedRows]);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -151,27 +131,23 @@ async function executeQueryUpdate_simpleQuery(db,query)
     }
 }
 
-async function executeselectQuery(db,query)
-{
+async function executeselectQuery(db, query) {
     const con = await DBConnect(db);
-   
-    if(con==false)
-    {
+
+    if (con == false) {
         return "database";
     }
-    else
-    {
-        let res = new Promise((resolve,reject)=>{
-                con.query(query, (err, result)=>{
-                    if(err)
-                    {
-                        reject(err);
-                    }
-                    else{
-                        resolve(result);
-                    }
-                });
-            })
+    else {
+        let res = new Promise((resolve, reject) => {
+            con.query(query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
@@ -184,5 +160,5 @@ async function executeselectQuery(db,query)
 async function insertData(database, query) {
     let result = await executeQueryInsert(database, query);
     return result;
- }
-module.exports = {executeQuery,executeQueryselect,executeQueryupdate,insertData,executeQueryInsert,executeQueryUpdate_simpleQuery,executeselectQuery} ;
+}
+module.exports = { executeQuery, executeQueryselect, executeQueryupdate, insertData, executeQueryInsert, executeQueryUpdate_simpleQuery, executeselectQuery };

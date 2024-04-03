@@ -38,9 +38,6 @@ function addwork() {
     
     button.setAttribute("onclick","fun(this)");
     
-    // button.addEventListener("click", () => {
-    //    button.parentNode.parentNode.removeChild(y);
-    // });
     y.appendChild(button);
  }
  

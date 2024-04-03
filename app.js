@@ -1,5 +1,5 @@
 const express = require('express');
-const routers = require('./Main_router.js');
+const router = require('./router.js');
 let cookieParser = require("cookie-parser");
 const app = express();
 require("dotenv").config();
@@ -18,6 +18,6 @@ app.listen((process.env.port),(error)=>{
     {
         console.log("Server is Running") 
         console.log("http://localhost:"+process.env.port+"/");
-        routers(app)
+        app.use('/',router);
     }
 });

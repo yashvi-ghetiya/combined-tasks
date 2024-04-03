@@ -45,7 +45,7 @@ let validation = async () => {
    }
 
    if (valid == true) {
-      var res = await fetch_POST_form("/task-12/login", "login");
+      var res = await fetch_POST_form("/login", "login");
       if (res['userAccess'] == true) {
          window.location.href = '/dashboard';
       }

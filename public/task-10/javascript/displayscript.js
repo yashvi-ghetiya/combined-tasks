@@ -1,6 +1,6 @@
 async function displaydata()
 {
-    var result = await fetch('https://jsonplaceholder.typicode.com/posts/'+window.location.pathname.split("/")[4])
+    var result = await fetch('https://jsonplaceholder.typicode.com/posts/'+window.location.pathname.split("/")[3])
     result = await result.json();
 
     
@@ -117,7 +117,7 @@ async function addComment()
         z.appendChild(t);
         document.getElementById("rows").appendChild(z);
 
-        var result = await fetch('https://jsonplaceholder.typicode.com/posts/'+window.location.pathname.split("/")[4]+'/comments')
+        var result = await fetch('https://jsonplaceholder.typicode.com/posts/'+window.location.pathname.split("/")[3]+'/comments')
         result = await result.json();
         
      

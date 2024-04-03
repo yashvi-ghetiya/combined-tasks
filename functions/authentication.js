@@ -1,17 +1,19 @@
 const jwt = require('jsonwebtoken');
 
-
-let authentication = async(req,res) => {
-    if (req.cookies['token'] == null || req.cookies['token'] == undefined) {
-        return false;
-    }
-    
-    return true;
-}
-let getUserId = (req) => {
-    const token = req.cookies['token']['token'];
-    
+let authentication = async(req,res,next) => {
+    let token = req.cookies['token'];
+    if(token){ 
     const decoded = jwt.verify(token,process.env.token_secret_key);
-    return decoded.userId;
+    if(decoded){
+        req.id = decoded.userId;
+        next();
+    }
+    else{
+        res.redirect('/login');
+    }
+    }
+    else{
+        res.redirect('/login');
+    }
 }
-module.exports = { authentication,getUserId };  
+module.exports = { authentication };  

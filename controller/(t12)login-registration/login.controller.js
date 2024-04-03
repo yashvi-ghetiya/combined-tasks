@@ -1,11 +1,11 @@
 var md5 = require('md5');
 const jwt = require('jsonwebtoken');
-
 const { executeselectQuery} = require('../../database_functions/executeQuery');
 
 const login_get = (req, res) => {
    res.render('./(t12)login-registration/html/login.ejs');
 }
+
 const login_post =  async (req, res) => {
    var result = null;
    if (req.body['email'] != '') {
@@ -13,7 +13,6 @@ const login_post =  async (req, res) => {
    }
    if (req.body['mobile'] != '') {
       result = await executeselectQuery('combinedTask', `select * from users_task12 where contact='${req.body['mobile']}' and status=1;`);
-      console.log(result);
    }
 
    if (result.length == 1) {

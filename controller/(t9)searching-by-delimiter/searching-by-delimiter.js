@@ -1,143 +1,117 @@
 
-const { authentication,getUserId } = require("../../functions/authentication");
-const { executeQuery  } = require('../../database_functions/executeQuery');
+const { executeQuery } = require('../../database_functions/executeQuery');
 
 const t9_searching_by_delimiter_post = async (req, res) => {
-    if(await authentication(req))
-    {
-        var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
-    var data=req.body.clause;
-   
-    var query="select * from student_master_task1 where";
-   
-    if(generateQuery(data,'_',"fname"))
-    {
-        query+=' '+generateQuery(data,'_',"fname");
+    try{
+    let userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${req.id} and status=1;`);
     }
-    if(generateQuery(data,'^',"lname"))
-    {
-        if(query.includes(')'))
-        {
-            query+=' and '+generateQuery(data,'^',"lname");
-        }
-        else
-        {
-            query+=' '+generateQuery(data,'^',"lname");
-        }
+    catch (err) {
+        res.redirect('/error');
     }
-    if(generateQuery(data,'$',"email"))
-    {
-        if(query.includes(')'))
-        {
-            query+=' and '+generateQuery(data,'$',"email");
+    let data = req.body.clause;
+
+    let query = "select * from student_master_task1 where";
+
+    if (generateQuery(data, '_', "fname")) {
+        query += ' ' + generateQuery(data, '_', "fname");
+    }
+    if (generateQuery(data, '^', "lname")) {
+        if (query.includes(')')) {
+            query += ' and ' + generateQuery(data, '^', "lname");
         }
-        else
-        {
-            query+=' '+generateQuery(data,'$',"email");
+        else {
+            query += ' ' + generateQuery(data, '^', "lname");
         }
     }
-    if(generateQuery(data,'}',"gender"))
-    {
-        if(query.includes(')'))
-        {
-            query+=' and '+generateQuery(data,'}',"gender");
+    if (generateQuery(data, '$', "email")) {
+        if (query.includes(')')) {
+            query += ' and ' + generateQuery(data, '$', "email");
         }
-        else
-        {
-            query+=' '+generateQuery(data,'}',"gender");
-      
+        else {
+            query += ' ' + generateQuery(data, '$', "email");
         }
     }
-    if(generateQuery(data,'{',"bgroup"))
-    {
-        if(query.includes(')'))
-        {
-            query+=' and '+generateQuery(data,'{',"bgroup");
+    if (generateQuery(data, '}', "gender")) {
+        if (query.includes(')')) {
+            query += ' and ' + generateQuery(data, '}', "gender");
         }
-        else
-        {
-            query+=' '+generateQuery(data,'{',"bgroup");
+        else {
+            query += ' ' + generateQuery(data, '}', "gender");
+
         }
     }
-    if(generateQuery(data,'#',"address"))
-    {
-        if(query.includes(')'))
-        {
-            query+=' and '+generateQuery(data,'#',"address");
+    if (generateQuery(data, '{', "bgroup")) {
+        if (query.includes(')')) {
+            query += ' and ' + generateQuery(data, '{', "bgroup");
         }
-        else
-        {
-            query+=' '+generateQuery(data,'#',"address");
+        else {
+            query += ' ' + generateQuery(data, '{', "bgroup");
         }
     }
-    query+=' ;';
-    
-   
-           
-    let result = await executeQuery('combinedTask',query);
-    res.render('./(t9)searching-by-delimiter/html/display',{firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],keys:result[0],results:result,error:''});
-}
-else
-    {
-        res.redirect('/login');
+    if (generateQuery(data, '#', "address")) {
+        if (query.includes(')')) {
+            query += ' and ' + generateQuery(data, '#', "address");
+        }
+        else {
+            query += ' ' + generateQuery(data, '#', "address");
+        }
+    }
+    query += ' ;';
+
+
+    try{
+    let result = await executeQuery('combinedTask', query);
+    res.render('./(t9)searching-by-delimiter/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: result[0], results: result, error: '' });
+    }
+    catch (err) {
+        res.redirect('/error');
     }
 };
 
 const t9_searching_by_delimiter_get = async (req, res) => {
-    if(await authentication(req))
-    {
-        var userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${getUserId(req)} and status=1;`);
-    res.render('./(t9)searching-by-delimiter/html/display',{firstname:userName[0]['firstname'],lastname:userName[0]['lastname'],keys:'',results:'',error:'Enter values'})
+    try{
+    let userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${req.id} and status=1;`);
+    res.render('./(t9)searching-by-delimiter/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: '', results: '', error: 'Enter values' });
     }
-    else
-    {
-        res.redirect('/login');
+    catch (err) {
+        res.redirect('/error');
     }
 };
 
-function generateQuery(data,delimiter,columnname)
-{ 
-    var mainstr='';
-    var delimiters=['_','^','}','{','#','$'];
-    if(data.includes(delimiter))
-    {
-        mainstr='(';
-        var count=0;
-        for(var i=0;i<data.length;i++)
-        {
-            var str='';
-            if(data[i]==delimiter)
-            {
-                str+=columnname+" like '";
+function generateQuery(data, delimiter, columnname) {
+    let mainstr = '';
+    let delimiters = ['_', '^', '}', '{', '#', '$'];
+    if (data.includes(delimiter)) {
+        mainstr = '(';
+        let count = 0;
+        for (let i = 0; i < data.length; i++) {
+            let str = '';
+            if (data[i] == delimiter) {
+                str += columnname + " like '";
 
-                for(var j=i+1;j<data.length;j++)
-                {
-                    if(delimiters.includes(data[j]))
-                    {
+                for (let j = i + 1; j < data.length; j++) {
+                    if (delimiters.includes(data[j])) {
                         break;
                     }
-                    str+=data[j];
+                    str += data[j];
                 }
-                str+="%'";
-                if(count==0)
-                {
-                    mainstr+=str;
+                str += "%'";
+                if (count == 0) {
+                    mainstr += str;
                 }
-                else
-                {
-                    mainstr+=' or '+str;
+                else {
+                    mainstr += ' or ' + str;
                 }
                 count++;
             }
         }
-        mainstr+=')';
+        mainstr += ')';
         return mainstr;
     }
-    else
-    {
+    else {
         return mainstr;
     }
 
 }
 
-module.exports = {t9_searching_by_delimiter_get,t9_searching_by_delimiter_post};
+module.exports = { t9_searching_by_delimiter_get, t9_searching_by_delimiter_post };

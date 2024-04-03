@@ -1,6 +1,5 @@
 var crypto = require('crypto');
 const { executeQueryUpdate_simpleQuery } = require('../../database_functions/executeQuery');
-const activateCode = require("express").Router();
 
 const activate_code =  async function (req, res) {
     
@@ -10,7 +9,6 @@ const activate_code =  async function (req, res) {
     var res1 = await executeQueryUpdate_simpleQuery('combinedTask', `update users_task12 set activation_code='${activationcode}',activate_code_update='${curdate}' where activation_code='${req.body['data']}'`);
     res.send({ message: "Link Activated\n\nEnter Password to Activate Account", activationcode: activationcode });
  };
-activateCode.post('',);
 
  module.exports=activate_code;
  

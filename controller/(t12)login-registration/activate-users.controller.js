@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var md5 = require('md5');
 const { executeQueryUpdate_simpleQuery } = require('../../database_functions/executeQuery');
-const activateUser = require("express").Router();
+
 
 const activate_user = async function (req, res) {
     var salt = crypto.randomBytes(32).toString('hex').slice(0, 6);

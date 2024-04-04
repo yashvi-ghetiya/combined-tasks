@@ -14,7 +14,6 @@ const t9_searching_by_delimiter_post = async (req, res) => {
     let data = req.body.clause;
 
     data = data.replace(' ','');
-    console.log(data);
 
     query = "select * from student_master_task1 where";
 

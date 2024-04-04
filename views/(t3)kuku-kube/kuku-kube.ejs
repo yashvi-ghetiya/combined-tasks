@@ -68,7 +68,8 @@
     </div>
     <script>
         var score=0;
-        var timeleft = 15;
+        var opacity=10;
+        var timeleft = 25;
         var y = document.getElementById('Timer');
         var timer = setInterval(count, 1000);
         function count() {
@@ -110,7 +111,6 @@
         
         function onclickfunc1(result)
         {
-          
           
            var ids= result.id;
            let arry = document.getElementById(ids).style.backgroundColor;
@@ -160,9 +160,20 @@
                     }
                 
                 //change opacity
-                var opacitycolor=color+"70";
+                var opacitycolor=color+opacity.toString();
                 document.getElementById(selectedcell).style.backgroundColor = opacitycolor;
                 score++;
+              
+                opacity+=10;
+                if(opacity==100)
+                {
+                    document.getElementById('game').innerHTML="Hurray Well Played! <br>Your Score is "+score;
+                    document.getElementById('game').style.color="green";
+                    document.getElementById('game').style.fontSize="xx-large";
+                    document.getElementById('Timer').innerHTML=null;
+                    timeleft=0;
+                }
+                    
                 document.getElementById("score").innerHTML="Score : "+score;
             }
             else

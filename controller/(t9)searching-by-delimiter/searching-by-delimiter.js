@@ -13,7 +13,8 @@ const t9_searching_by_delimiter_post = async (req, res) => {
     }
     let data = req.body.clause;
 
-    data = data.replace(' ','');
+   
+    data = data.replace(/ +/g, "");
 
     query = "select * from student_master_task1 where";
 
@@ -122,5 +123,6 @@ function generateQuery(data, delimiter, columnname) {
     }
 
 }
+
 
 module.exports = { t9_searching_by_delimiter_get, t9_searching_by_delimiter_post };

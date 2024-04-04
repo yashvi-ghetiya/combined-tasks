@@ -1,10 +1,12 @@
 
 
-const { executeselectQuery} = require('../../database_functions/executeQuery');
+const { executeQueryselect} = require('../../database_functions/executeQuery');
 
 const fetch_users_by_code  =async function (req, res) {
    try{
-   let result = await executeselectQuery('combinedTask', `select * from users_task12 where activation_code='${req.params.code}';`);
+    let query= `select * from users_task12 where activation_code=?;`
+    let values=[req.params.code];
+    let result = await executeQueryselect('combinedTask',query,values);
    res.send({ result });
 }
 catch (err) {
@@ -14,7 +16,9 @@ catch (err) {
 
 const fetch_users_by_email_contact = async function (req, res) {
    try{
-   let result = await executeselectQuery('combinedTask', `select count(*) from users_task12 where email='${req.params.email}' or contact='${req.params.contact}';`);
+    let query= `select count(*) from users_task12 where email=? or contact=?;`;
+    let values=[req.params.email,req.params.contact];
+    let result = await executeQueryselect('combinedTask',query,values);
    res.send({ result });
 }
 catch (err) {

@@ -1,12 +1,14 @@
 let crypto = require('crypto');
 let md5 = require('md5');
-const { executeQueryUpdate_simpleQuery } = require('../../database_functions/executeQuery');
+const { executeQueryupdate } = require('../../database_functions/executeQuery');
 
 
 const activate_user = async function (req, res) {
     let salt = crypto.randomBytes(32).toString('hex').slice(0, 6);
     try{
-    let res1 = await executeQueryUpdate_simpleQuery('combinedTask', `update users_task12 set status=${true},password='${md5(req.body['pass1'] + salt)}',password_salt='${salt}' where activation_code='${req.params.code}'`);
+    let query = `update users_task12 set status=?,password=?,password_salt=? where activation_code=?`;
+    values=[true,md5(req.body['pass1'] + salt),salt,req.params.code];
+    executeQueryupdate('combinedTask',query,values);
     res.send({ message: "Account Activated\n\nLogin To Experience Our Services" });
 }
 catch (err) {

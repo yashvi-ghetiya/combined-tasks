@@ -1,5 +1,5 @@
 let crypto = require('crypto');
-const { executeQueryUpdate_simpleQuery } = require('../../database_functions/executeQuery');
+const { executeQueryupdate } = require('../../database_functions/executeQuery');
 
 const activate_code =  async function (req, res) {
     
@@ -7,7 +7,10 @@ const activate_code =  async function (req, res) {
     let curdate = new Date();
     curdate = `${curdate.toISOString().replace('T', ' ').split(' ')[0]} ${curdate.getHours()}:${curdate.getMinutes()}:${curdate.getSeconds()}:${curdate.getMilliseconds()}`;
     try{
-    let res1 = await executeQueryUpdate_simpleQuery('combinedTask', `update users_task12 set activation_code='${activationcode}',activate_code_update='${curdate}' where activation_code='${req.body['data']}'`);
+        let query = `update users_task12 set activation_code=?,activate_code_update=? where activation_code=?`;
+        values=[activationcode,curdate,req.body['data']]
+        executeQueryupdate('combinedTask',query,values);
+    // let res1 = await executeQueryUpdate_simpleQuery('combinedTask', );
 }
 catch (err) {
     res.redirect('/error');

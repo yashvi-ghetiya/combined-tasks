@@ -8,25 +8,33 @@ async function executeQuery(db, query) {
     }
     else {
         let res = new Promise((resolve, reject) => {
-            con.query(query, (err, result) => {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(result);
-                }
-            });
+            try {
+                con.query(query, (err, result) => {
+                    if (err) {
+                        console.log(err.sqlMessage);
+                        reject(err);
+                    }
+                    else {
+                        console.log(result, query)
+                        resolve(result);
+                    }
+                });
+            }
+            catch (err) {
+                throw err;
+            }
         })
         let result = res.then((result) => {
             return result
         }).catch((err) => {
             return false;
         });
+
         return result;
     }
 }
 
-async function executeQueryInsert(db, query) {
+async function executeQueryInsert(db, query, values) {
     const con = await DBConnect(db);
 
     if (con == false) {
@@ -34,12 +42,13 @@ async function executeQueryInsert(db, query) {
     }
     else {
         let res = new Promise((resolve, reject) => {
-            con.query(query, (err, result) => {
+            con.query(query, values, (err, result) => {
                 if (err) {
+                    console.log(err);
                     reject(err);
                 }
                 else {
-
+                    console.log("success");
                     resolve(result.insertId);
                 }
             });
@@ -60,22 +69,23 @@ async function executeQueryselect(db, query, values) {
         return "database";
     }
     else {
-        let res = new Promise((resolve, reject) => {
-            con.query(query, values, (err, result) => {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(result);
-                }
-            });
+        return new Promise((resolve, reject) => {
+            try {
+                con.query(query, values, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+
+                        resolve(result);
+                    }
+                });
+            }
+            catch (err) {
+                throw err;
+            }
         })
-        let result = res.then((result) => {
-            return result
-        }).catch((err) => {
-            return err;
-        });
-        return result;
+
     }
 }
 
@@ -131,7 +141,7 @@ async function executeQueryUpdate_simpleQuery(db, query) {
     }
 }
 
-async function executeselectQuery(db, query) {
+async function executeselectQuery(db, query1) {
     const con = await DBConnect(db);
 
     if (con == false) {
@@ -139,11 +149,15 @@ async function executeselectQuery(db, query) {
     }
     else {
         let res = new Promise((resolve, reject) => {
-            con.query(query, (err, result) => {
+            console.log(query1)
+            con.query(query1, (err, result) => {
+
                 if (err) {
                     reject(err);
                 }
                 else {
+                    console.log(query1)
+                    console.log(result)
                     resolve(result);
                 }
             });

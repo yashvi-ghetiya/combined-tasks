@@ -247,7 +247,7 @@ let loadData = async () => {
 
 let updateData =async() => {
   var id = window.location.href.split('/').pop();
-  let url = "./dashboard/t11-updatedata/"+id;
+  let url = "/dashboard/t11-updatedata/"+id;
 
   let form = document.getElementById("regForm");
 

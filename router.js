@@ -22,7 +22,7 @@ const t7_display = require("./controller/(t7)dynamic-grid/dynamic-grid");
 const t8_searching = require("./controller/(t8)searching/searching");
 const { t9_searching_by_delimiter_get, t9_searching_by_delimiter_post } = require("./controller/(t9)searching-by-delimiter/searching-by-delimiter");
 const error = require("./controller/error/error");
-const { authentication } = require("./functions/authentication");
+const { authentication } = require("./middleware/authentication");
 
 //task-1
 router.route('/dashboard/t1-dynamic-table').get(authentication, t1_dynamictable);
@@ -37,7 +37,7 @@ router.route('/dashboard/t3-kuku-kube').get(authentication, t3_kuku_kube);
 router.route('/dashboard/t4-javascript-events').get(authentication, t4_javascript_events);
 
 //task-5
-router.route('/dashboard/t5-displayspecific').get(authentication,t5_displayspecific);
+router.route('/dashboard/t5-displayspecific').get(authentication, t5_displayspecific);
 router.route('/dashboard/t5-display').get(authentication, t5_display);
 
 //task-6
@@ -71,12 +71,12 @@ router.route('/dashboard/t11-fetch-state').get(authentication, t11_fetch_state);
 //task-12
 router.route('/activate-code').post(activate_code);
 router.route('/activate-users/:code').post(activate_user);
-router.route('/dashboard').get(authentication, dashboard);
-router.route('/fetch-users/:code').get( fetch_users_by_code);
-router.route('/fetch-users/:email/:contact').get( fetch_users_by_email_contact);
+router.route('/dashboard').get(authentication,dashboard);
+router.route('/fetch-users/:code').get(fetch_users_by_code);
+router.route('/fetch-users/:email/:contact').get(fetch_users_by_email_contact);
 router.route('/insert-users').post(insertUser);
 router.route('/login').get(login_get).post(login_post);
-router.route('/logout').get(authentication,logout);
+router.route('/logout').get(authentication, logout);
 router.route('/registration').get(registration);
 router.route('/updatePassword').post(updatePassword);
 router.route('/userVerification').get(userVerificationGet).post(userVerificationPost);

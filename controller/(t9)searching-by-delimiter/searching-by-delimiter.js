@@ -1,16 +1,22 @@
 
-const { executeQuery } = require('../../database_functions/executeQuery');
+const { executeQueryselect } = require('../../database_functions/executeQuery');
 
 const t9_searching_by_delimiter_post = async (req, res) => {
-    try{
-    let userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${req.id} and status=1;`);
+    let query, values, result, result1;
+    query = "select firstname,lastname from users_task12 where id=? and status=1;";
+    values = [req.id];
+    try {
+        result = await executeQueryselect("combinedTask", query, values);
     }
     catch (err) {
         res.redirect('/error');
     }
     let data = req.body.clause;
 
-    let query = "select * from student_master_task1 where";
+    data = data.replace(' ','');
+    console.log(data);
+
+    query = "select * from student_master_task1 where";
 
     if (generateQuery(data, '_', "fname")) {
         query += ' ' + generateQuery(data, '_', "fname");
@@ -59,9 +65,10 @@ const t9_searching_by_delimiter_post = async (req, res) => {
     query += ' ;';
 
 
-    try{
-    let result = await executeQuery('combinedTask', query);
-    res.render('./(t9)searching-by-delimiter/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: result[0], results: result, error: '' });
+    try {
+        result1 = await executeQueryselect("combinedTask", query, values);
+      
+        res.render('./(t9)searching-by-delimiter/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], keys: result1[0], results: result1, error: '' });
     }
     catch (err) {
         res.redirect('/error');
@@ -69,9 +76,12 @@ const t9_searching_by_delimiter_post = async (req, res) => {
 };
 
 const t9_searching_by_delimiter_get = async (req, res) => {
-    try{
-    let userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${req.id} and status=1;`);
-    res.render('./(t9)searching-by-delimiter/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: '', results: '', error: 'Enter values' });
+    let query, values, result;
+    query = "select firstname,lastname from users_task12 where id=? and status=1;";
+    values = [req.id];
+    try {
+        result = await executeQueryselect("combinedTask", query, values);
+        res.render('./(t9)searching-by-delimiter/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], keys: '', results: '', error: 'Enter values' });
     }
     catch (err) {
         res.redirect('/error');

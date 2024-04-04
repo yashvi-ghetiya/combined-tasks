@@ -1,71 +1,74 @@
 
-const { executeQuery } = require('../../database_functions/executeQuery');
+const { executeQueryselect, executeQuery } = require('../../database_functions/executeQuery');
 let recordsPerPage = 10;
 let totalPages, currentPage, offset;
 let ordertype = '';
 
 
 const t7_display = async (req, res) => {
-    let userName
-    try{
-   userName = await executeQuery('combinedTask', `select firstname,lastname from users_task12 where id=${req.id} and status=1;`);
+    let query, values, result;
+    query = "select firstname,lastname from users_task12 where id=? and status=1;";
+    values = [req.id];
+    try {
+        result = await executeQueryselect("combinedTask", query, values);
+
     }
     catch (err) {
         res.redirect('/error');
     }
     ordertype = '';
     if (req.query['query'] == '' || req.query['query'] == null || req.query['query'] == undefined || req.query['database'] == undefined || req.query['database'] == null || req.query['database'] == '') {
-        res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], error: "Please Enter Query in Text Box and Enter Database Name!", query: '', database: '' });
+        res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], error: "Please Enter Query in Text Box and Enter Database Name!", query: '', database: '' });
     }
     else {
-        let result;
-        try{
-            result = await executeQuery(req.query['database'], req.query['query']);
+        let result1;
+        try {
+            result1 = await executeQuery(req.query['database'], req.query['query']);
         }
         catch (err) {
             res.redirect('/error');
         }
         //Calculate Pages=============================================================================================
 
-        if (result.length < recordsPerPage) {
-            totalPages = 1;
-        }
-        else {
-            let totalRecords = result.length;
-            totalPages = Math.ceil(totalRecords / recordsPerPage);
-        }
+        if (result1 != undefined) {
+            if (result1.length < recordsPerPage) {
+                totalPages = 1;
+            }
+            else {
+                let totalRecords = result1.length;
+                totalPages = Math.ceil(totalRecords / recordsPerPage);
+            }
+            //Fetch Current Page==========================================================================================
 
-        //Fetch Current Page==========================================================================================
+            if (req.query['page'] == '' || req.query['page'] == null || req.query['page'] == undefined) {
+                currentPage = 1;
+                offset = 0;
+            }
+            else {
+                currentPage = req.query['page'];
+                offset = (Number(currentPage) * recordsPerPage) - recordsPerPage;
+            }
 
-        if (req.query['page'] == '' || req.query['page'] == null || req.query['page'] == undefined) {
-            currentPage = 1;
-            offset = 0;
-        }
-        else {
-            currentPage = req.query['page'];
-            offset = (Number(currentPage) * recordsPerPage) - recordsPerPage;
-        }
-
-        //Render Data==================================================================================================
+            //Render Data==================================================================================================
 
 
-        if (result == "database") {
-            res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], error: "Opps Some Error in Database Connection!", query: '', database: '', ordertype: '' });
-        }
+            if (result1 == "database") {
+                res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], error: "Opps Some Error in Database Connection!", query: '', database: '', ordertype: '' });
+            }
 
-        else if (result == false) {
-            res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], error: "Opps Some Error in Fetching Data from Table!", query: '', database: '', ordertype: '' });
-        }
+            else if (result1 == false) {
+                console.log(false);
+                res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], error: "Opps Some Error in Fetching Data from Table!", query: '', database: '', ordertype: '' });
+            }
 
-        else if (totalPages < currentPage || currentPage < 1) {
-            res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], error: "Opps Some Error occured", query: '', database: '', ordertype: '' });
-        }
-
-        else {
+            else if (totalPages < currentPage || currentPage < 1) {
+                res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], error: "Opps Some Error occured", query: '', database: '', ordertype: '' });
+            }
+             else {
             if (req.query['clicked']) {
 
-                result = result.slice(offset, currentPage * recordsPerPage);
-                res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: result[0], results: result, page: currentPage, error: '', query: req.query['query'], lastpage: totalPages, database: req.query['database'], ordertype: ordertype })
+                result1 = result1.slice(offset, currentPage * recordsPerPage);
+                res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], keys: result1[0], results: result1, page: currentPage, error: '', query: req.query['query'], lastpage: totalPages, database: req.query['database'], ordertype: ordertype })
             }
             else {
                 const sort = (data, key, type) => {
@@ -85,11 +88,18 @@ const t7_display = async (req, res) => {
                     }
                     return data;
                 }
-                result = sort(result, req.query['orderby'], req.query['ordertype'])
-                result = result.slice(offset, currentPage * recordsPerPage);
-                res.render('./(t7)dynamic-table/html/display', { firstname: userName[0]['firstname'], lastname: userName[0]['lastname'], keys: result[0], results: result, page: currentPage, error: '', query: req.query['query'], lastpage: totalPages, database: req.query['database'], ordertype: ordertype, orderby: req.query['orderby'] })
+                result1 = sort(result1, req.query['orderby'], req.query['ordertype'])
+                result1 = result1.slice(offset, currentPage * recordsPerPage);
+                res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], keys: result1[0], results: result1, page: currentPage, error: '', query: req.query['query'], lastpage: totalPages, database: req.query['database'], ordertype: ordertype, orderby: req.query['orderby'] })
             }
         }
+
+        }
+
+
+
+
+       
     }
 
 };

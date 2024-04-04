@@ -1,7 +1,6 @@
 const { executeQueryselect, executeQueryupdate, executeQuery,insertData } = require('../database_functions/executeQuery');
 
 let updateData = async (database, arr, id) => {
-
   basic_details(database, arr, id);
   edu(database, arr, id);
   work(database, arr, id);
@@ -12,7 +11,6 @@ let updateData = async (database, arr, id) => {
 }
 
 async function basic_details(database, arr, id) {
-  //basic detail
   let query = `UPDATE candidateMaster
    SET fname = ?, lname = ?,designation = ?,city = ?,state = ?,email = ?,phoneNo = ?,zipCode = ?,gender = ?,relationship = ?,dob = ?,add1 = ?,add2 = ?
    WHERE canid = ?;`;
@@ -22,7 +20,7 @@ async function basic_details(database, arr, id) {
 }
 
 async function edu(database, arr, id) {
-  query = "SELECT * from educationDetails where canid = ? ;";
+  query = "SELECT * from educationDetails_task15 where canid = ? ;";
   values = [id]
   result = await executeQueryselect(database, query, values);
 
@@ -37,7 +35,7 @@ async function edu(database, arr, id) {
 
   if (result.length == len) {
     for (let i = 0; i < len; i++) {
-      let query = `UPDATE educationDetails
+      let query = `UPDATE educationDetails_task15
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
       let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
@@ -48,7 +46,7 @@ async function edu(database, arr, id) {
   else if (result.length < len) {
 
     for (let i = 0; i < result.length; i++) {
-      let query = `UPDATE educationDetails
+      let query = `UPDATE educationDetails_task15
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
       let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
@@ -56,7 +54,7 @@ async function edu(database, arr, id) {
     }
     for (let i = result.length; i < len; i++) {
 
-      let query = `INSERT INTO educationDetails 
+      let query = `INSERT INTO educationDetails_task15
         (canid,degree,board_courseName,passingYear,percentage) 
         VALUES 
         ('${id}',
@@ -72,7 +70,7 @@ async function edu(database, arr, id) {
 
     for (let i = 0; i < len; i++) {
 
-      let query = `UPDATE educationDetails
+      let query = `UPDATE educationDetails_task15
         SET degree = ?,board_courseName = ?,passingYear = ?,percentage = ?
         WHERE eid = ? ;`;
       let values = [arr['degree'][i], arr['edu'][i], arr['edupassingyear'][i], arr['eduper'][i], arr['eduid'][i]];
@@ -80,7 +78,7 @@ async function edu(database, arr, id) {
     }
     for (let i = len; i < result.length; i++) {
 
-      let query = `delete from educationDetails where eid=` + arr['eduid'][i];
+      let query = `delete from educationDetails_task15 where eid=` + arr['eduid'][i];
       await executeQuery(database, query);
 
     }
@@ -88,7 +86,7 @@ async function edu(database, arr, id) {
 }
 
 async function work(database, arr, id) {
-  query = "SELECT * from workExperience where canid = ? ;";
+  query = "SELECT * from workExperience_task15 where canid = ? ;";
   values = [id]
   result = await executeQueryselect(database, query, values);
 
@@ -103,7 +101,7 @@ async function work(database, arr, id) {
   if (result.length == len) {
     
     for (let i = 0; i < len; i++) {
-      let query = `UPDATE workExperience
+      let query = `UPDATE workExperience_task15
         SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
         WHERE wid = ? ;`;
       let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
@@ -113,7 +111,7 @@ async function work(database, arr, id) {
   else if (result.length < len) {
     
     for (let i = 0; i < result.length; i++) {
-      let query = `UPDATE workExperience
+      let query = `UPDATE workExperience_task15
       SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
       WHERE wid = ? ;`;
       let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
@@ -121,7 +119,7 @@ async function work(database, arr, id) {
     }
     for (let i = result.length; i < len; i++) {
 
-      let query = `INSERT INTO workExperience 
+      let query = `INSERT INTO workExperience_task15 
         (canid,companyName,designation,fromDate,toDate) 
         VALUES 
         ('${id}',
@@ -136,7 +134,7 @@ async function work(database, arr, id) {
   else if (result.length > len) {
    
     for (let i = 0; i < len; i++) {
-      let query = `UPDATE workExperience
+      let query = `UPDATE workExperience_task15
       SET companyName = ?,designation = ?,fromDate = ?,toDate = ?
       WHERE wid = ? ;`;
       let values = [arr['company'][i], arr['des'][i], arr['workfrom'][i], arr['workto'][i], arr['workid'][i]];
@@ -147,7 +145,7 @@ async function work(database, arr, id) {
       if(arr['workid'][i]==undefined)
       {
        
-        let query = `delete from workExperience where wid >` + arr['workid'][i-1];
+        let query = `delete from workExperience_task15 where wid >` + arr['workid'][i-1];
         
         
         await executeQuery(database, query);
@@ -157,7 +155,7 @@ async function work(database, arr, id) {
       else
       {
         
-        let query = `delete from workExperience where wid=` + arr['workid'][i];
+        let query = `delete from workExperience_task15 where wid=` + arr['workid'][i];
         await executeQuery(database, query);
       }
       
@@ -166,7 +164,7 @@ async function work(database, arr, id) {
 }
 
 async function ref(database, arr, id) {
-  query = "SELECT * from referenceContact where canid = ? ;";
+  query = "SELECT * from referenceContact_task15 where canid = ? ;";
   values = [id]
   result = await executeQueryselect(database, query, values);
  
@@ -182,7 +180,7 @@ async function ref(database, arr, id) {
   if (result.length == len) {
  
     for (let i = 0; i < len; i++) {
-      let query = `UPDATE referenceContact
+      let query = `UPDATE referenceContact_task15
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
       let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
@@ -193,7 +191,7 @@ async function ref(database, arr, id) {
   else if (result.length < len) {
    
     for (let i = 0; i < result.length; i++) {
-      let query = `UPDATE referenceContact
+      let query = `UPDATE referenceContact_task15
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
         let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
@@ -201,7 +199,7 @@ async function ref(database, arr, id) {
     }
     for (let i = result.length; i < len; i++) {
 
-      let query = `INSERT INTO referenceContact 
+      let query = `INSERT INTO referenceContact_task15 
         (canid,name,contactNo,relation) 
         VALUES 
         ('${id}',
@@ -215,7 +213,7 @@ async function ref(database, arr, id) {
   else if (result.length > len) {
    
     for (let i = 0; i < len; i++) {
-      let query = `UPDATE referenceContact
+      let query = `UPDATE referenceContact_task15
         SET name = ?,contactNo = ?,relation = ?
         WHERE rid = ? ;`;
         let values = [arr['refname'][i], arr['refcontact'][i], arr['refrel'][i],arr['rid'][i]];
@@ -226,7 +224,7 @@ async function ref(database, arr, id) {
     
       if(arr['workid'][i]==undefined)
       {
-        let query = `delete from referenceContact where rid >` + arr['rid'][i-1];
+        let query = `delete from referenceContact_task15 where rid >` + arr['rid'][i-1];
         
         await executeQuery(database, query);
         break;
@@ -235,7 +233,7 @@ async function ref(database, arr, id) {
       else
       {
         
-        let query = `delete from referenceContact where rid=` + arr['rid'][i];
+        let query = `delete from referenceContact_task15 where rid=` + arr['rid'][i];
         await executeQuery(database, query);
       }
       
@@ -245,7 +243,7 @@ async function ref(database, arr, id) {
 
 async function pref(database, arr, id) {
  
-  let query = `UPDATE preference
+  let query = `UPDATE preference_task15
    SET preferedLocation = ?,noticePeriod = ?,expectedCTC = ?,currentCTC = ?,department = ?
    WHERE canid = ?;`;
   let values = [arr["preferedlocation"].toString(),arr['noticeperiod'],arr['expectedCTC'],arr['currentCTC'],arr['department'], id];
@@ -253,12 +251,12 @@ async function pref(database, arr, id) {
 }
 
 async function tech(database, arr, id) {
-  let query = `delete from technologyYouKnow where canid=` + id;
+  let query = `delete from technologyYouKnow_task15 where canid=` + id;
   await executeQuery(database, query);
 
   if(arr['php']!=undefined)
   {
-     result2 = await insertData(database,`INSERT INTO technologyYouKnow 
+     result2 = await insertData(database,`INSERT INTO technologyYouKnow_task15 
     (canid,technology,level) 
        VALUES 
        ('${id}',
@@ -268,7 +266,7 @@ async function tech(database, arr, id) {
   }
   if(arr['mysql']!=undefined)
   {
-     result2 = await insertData(database,`INSERT INTO technologyYouKnow 
+     result2 = await insertData(database,`INSERT INTO technologyYouKnow_task15 
      (canid,technology,level) 
        VALUES 
        ('${id}',
@@ -278,7 +276,7 @@ async function tech(database, arr, id) {
   }
   if(arr['laravel']!=undefined)
   {
-     result2 = await insertData(database,`INSERT INTO technologyYouKnow 
+     result2 = await insertData(database,`INSERT INTO technologyYouKnow_task15 
      (canid,technology,level) 
        VALUES 
        ('${id}',
@@ -288,7 +286,7 @@ async function tech(database, arr, id) {
   }
   if(arr['oracle']!=undefined)
   {
-     result2 = await insertData(database,`INSERT INTO technologyYouKnow 
+     result2 = await insertData(database,`INSERT INTO technologyYouKnow_task15 
      (canid,technology,level) 
        VALUES 
        ('${id}',
@@ -302,7 +300,7 @@ async function lang(database,arr,id)
 {
   let arr1 =['canRead','canWrite','canSpeak'];
       let arr2=[];
-      let query = `delete from languageKnown where canid=` + id;
+      let query = `delete from languageKnown_task15 where canid=` + id;
       await executeQuery(database, query);
       
       if(arr['hindi']!=undefined)
@@ -319,7 +317,7 @@ async function lang(database,arr,id)
             }
          }
          
-         result2 = await insertData(database,`INSERT INTO languageKnown 
+         result2 = await insertData(database,`INSERT INTO languageKnown_task15 
          (canid,language,canRead,canWrite,canSpeak) 
          VALUES 
          ('${id}',
@@ -343,7 +341,7 @@ async function lang(database,arr,id)
             }
          }
         
-         result2 = await insertData(database,`INSERT INTO languageKnown 
+         result2 = await insertData(database,`INSERT INTO languageKnown_task15 
          (canid,language,canRead,canWrite,canSpeak) 
          VALUES 
          ('${id}',
@@ -367,7 +365,7 @@ async function lang(database,arr,id)
             }
          }
         
-         result2 = await insertData(database,`INSERT INTO languageKnown 
+         result2 = await insertData(database,`INSERT INTO languageKnown_task15 
          (canid,language,canRead,canWrite,canSpeak) 
          VALUES 
          ('${id}',

@@ -1,6 +1,6 @@
 let md5 = require('md5');
 const jwt = require('jsonwebtoken');
-const { executeselectQuery } = require('../../database_functions/executeQuery');
+const { executeQueryselect } = require('../../database_functions/executeQuery');
 
 const login_get = (req, res) => {
    res.render('./(t12)login-registration/html/login.ejs');
@@ -10,7 +10,10 @@ const login_post = async (req, res) => {
    let result = null;
    if (req.body['email'] != '') {
       try {
-         result = await executeselectQuery('combinedTask', `select * from users_task12 where email='${req.body['email']}' and status=1;`);
+         let query= `select * from users_task12 where email=? and status=1;`
+         let values=[req.body['email']];
+         result = await executeQueryselect('combinedTask',query,values);
+         
       }
       catch (err) {
          res.redirect('/error');
@@ -18,7 +21,9 @@ const login_post = async (req, res) => {
    }
    if (req.body['mobile'] != '') {
       try {
-         result = await executeselectQuery('combinedTask', `select * from users_task12 where contact='${req.body['mobile']}' and status=1;`);
+         let query= `select * from users_task12 where contact=? and status=1;`
+         let values=[req.body['mobile']];
+         result = await executeQueryselect('combinedTask',query,values);
       }
       catch (err) {
          res.redirect('/error');

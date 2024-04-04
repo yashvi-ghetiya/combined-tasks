@@ -1,4 +1,4 @@
-const { executeselectQuery } = require('../../database_functions/executeQuery');
+const { executeQueryselect } = require('../../database_functions/executeQuery');
 
 
 const userVerificationGet = async function (req, res) {
@@ -13,11 +13,15 @@ const userVerificationPost = async function (req, res) {
         catch (err) {
             res.redirect('/error');
         }
-        result = await executeselectQuery('combinedTask', `select * from users_task12 where email='${req.body['email']}';`);
+        let query= `select * from users_task12 where email=? and status=1;`;
+        let values=[req.body['email']];
+        result = await executeQueryselect('combinedTask',query,values);
     }
     if (req.body['mobile'] != '') {
         try {
-            result = await executeselectQuery('combinedTask', `select * from users_task12 where contact='${req.body['mobile']}' and status=1;`);
+            let query=`select * from users_task12 where contact=? and status=1;`;
+            let values=[req.body['mobile']];
+            result = await executeQueryselect('combinedTask',query,values);
         }
         catch (err) {
             res.redirect('/error');

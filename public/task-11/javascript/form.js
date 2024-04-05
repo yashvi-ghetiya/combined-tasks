@@ -48,23 +48,14 @@ function validateForm() {
   z = x[currentTab].getElementsByTagName("textarea");
   a = x[currentTab].getElementsByTagName("select");
 
-  for (i = 0; i < y.length; i++) {
-    if (y[i].value == "" && y[i].type != 'hidden') {
-      y[i].className += " invalid";
-      valid = false;
-    }
+  if(currentTab==0)
+  {
+    valid = basic_details_validation();
   }
-  for (i = 0; i < z.length; i++) {
-    if (z[i].value == "") {
-      z[i].className += " invalid";
-      valid = false;
-    }
-  }
-  for (i = 0; i < a.length; i++) {
-    if (a[i].value == "") {
-      a[i].className += " invalid";
-      valid = false;
-    }
+
+  if(currentTab==1)
+  {
+    valid = education_details_validation();
   }
 
   if (valid) {
@@ -268,6 +259,5 @@ let updateData =async() => {
 
   return true;
 }
-
 
 

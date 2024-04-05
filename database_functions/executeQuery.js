@@ -7,15 +7,13 @@ async function executeQuery(db, query) {
         return "database";
     }
     else {
-        let res = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             try {
                 con.query(query, (err, result) => {
                     if (err) {
-                        console.log(err.sqlMessage);
-                        reject(err);
+                        reject(false);
                     }
                     else {
-                        console.log(result, query)
                         resolve(result);
                     }
                 });
@@ -24,13 +22,13 @@ async function executeQuery(db, query) {
                 throw err;
             }
         })
-        let result = res.then((result) => {
-            return result
-        }).catch((err) => {
-            return false;
-        });
+        // let result = res.then((result) => {
+        //     return result
+        // }).catch((err) => {
+        //     return false;
+        // });
 
-        return result;
+       // return result;
     }
 }
 

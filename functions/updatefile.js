@@ -1,6 +1,8 @@
+
 const { executeQueryselect, executeQueryupdate, executeQuery,insertData } = require('../database_functions/executeQuery');
 
 let updateData = async (database, arr, id) => {
+
   basic_details(database, arr, id);
   edu(database, arr, id);
   work(database, arr, id);
@@ -11,11 +13,12 @@ let updateData = async (database, arr, id) => {
 }
 
 async function basic_details(database, arr, id) {
-  let query = `UPDATE candidateMaster
+  let query = `UPDATE candidateMaster_task15
    SET fname = ?, lname = ?,designation = ?,city = ?,state = ?,email = ?,phoneNo = ?,zipCode = ?,gender = ?,relationship = ?,dob = ?,add1 = ?,add2 = ?
    WHERE canid = ?;`;
+   console.log(arr['fname']);
   let values = [arr['fname'], arr['lname'], arr['desig'], arr['city'], arr['state'], arr['email'], arr['contact'], arr['zipcode'], arr['gender'], arr['relationship'], arr['dob'], arr['add1'], arr['add2'], id];
-  await executeQueryupdate(database, query, values);
+ await executeQueryupdate(database, query, values);
 
 }
 

@@ -231,9 +231,11 @@ let work_experience_details_validation = () => {
             display_block_by_name(worktovalid[i]);
             change_background_by_name(workto[i]);
         }
-        if (!date_difference(workfrom[i].value, workto[i].value)) {
-            valid = false;
-            alert('From-date cannot be greater than To-date');
+        if ((workfrom[i].value!=''&& workto[i].value!='') ){
+            if(!date_difference(workfrom[i].value, workto[i].value)) {
+                valid = false;
+                alert('From-date cannot be greater than To-date');
+            }
         }
     }
 
@@ -396,8 +398,8 @@ let date_validation = (id, element) => {
 
 let date_difference = (from, to) => {
     let valid = true;
-    const isAfterDate = (dateA, dateB) => dateA >= dateB;
-    valid = isAfterDate(new Date(to), new Date(from));
+    const is_valid = (date_to, date_from) => date_to >= date_from;
+    valid = is_valid(new Date(to), new Date(from));
     console.log(valid);
     return valid;
 }

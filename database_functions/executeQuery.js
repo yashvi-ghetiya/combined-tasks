@@ -98,6 +98,7 @@ async function executeQueryupdate(db, query, values) {
                     reject(err);
                 }
                 else {
+                    console.log(result.affectedRows);
                     resolve(result.affectedRows);
                 }
             });

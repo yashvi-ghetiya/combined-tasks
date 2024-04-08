@@ -97,7 +97,7 @@ function generateQuery(data, delimiter, columnname) {
         for (let i = 0; i < data.length; i++) {
             let str = '';
             if (data[i] == delimiter) {
-                str += columnname + " like '";
+                str += columnname + " like '%";
 
                 for (let j = i + 1; j < data.length; j++) {
                     if (delimiters.includes(data[j])) {
@@ -112,6 +112,7 @@ function generateQuery(data, delimiter, columnname) {
                 else {
                     mainstr += ' or ' + str;
                 }
+              
                 count++;
             }
         }

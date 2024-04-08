@@ -27,7 +27,7 @@ let basic_details_validation = () => {
     }
 
 
-    /*if (document.getElementById('state').value == -1) {
+if (document.getElementById('state').value == -1) {
       valid = false;
       display_block('statevalid')
     }
@@ -35,7 +35,7 @@ let basic_details_validation = () => {
     if (document.getElementById('city').value == -1) {
       valid = false;
       display_block('cityvalid')
-    }*/
+    }
 
     const validEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     if (!document.getElementById('email').value.match(validEmailRegex)) {

@@ -16,10 +16,6 @@
     <div id="wrapper">
       <%- include('../header/header.ejs') %>
         <div id="page-wrapper">
-          <center>
-            <h1>YASHVI GHETIYA</h1>
-           
-            <br><br>
               <table id="customers" style="text-align: center;">
                   <tr>
                     <th rowspan="2">Sid</th>
@@ -57,51 +53,8 @@
                     
                     <% } %>
               </table>
-              <div style="display: flex;">
-                <div class="div1">
-                      <% var disabled=null%>
-              
-                      <% if (page==1) { %>
-                        <% disabled="disabled" %>
-                      <% } %>
-                    
-                      <% var orderby1="undefined" %>
-                      <% if(orderby!="undefined"){ %>
-                        <% orderby1=orderby %>
-                      <%}%>
-              
-                      <% var ordertype1="undefined" %>
-                      <% if(ordertype!="undefined"){ %>
-                        <% ordertype1=ordertype %>
-                      <%}%>
-              
-                      <% var month1=1,year1=2024 %>
-                      <% if(year!="undefined" || month!="undefined") { %>
-                        <% month1=month %>
-                        <% year1=year %>
-                        <% } %>
-                       <center>
-                    <button id="firstpage" class="btn" onclick="window.location.href='./t5-display?page=<%= 1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&lt;&lt;</a>
-                    <button id="previouspage" class="btn" onclick="window.location.href='./t5-display?page=<%= Number(page)-1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'"<%= disabled %>>&lt;</a>
-                    <div id="currentpage" class="btn" ><%= page %></div>
-                
-                  
-                    <% disabled=null %>
-                    <% if (totalpages==page) { %>
-                      <% disabled="disabled" %>
-                    <% } %>
-                  
-                    <button id="nextpage" class="btn" onclick="window.location.href='./t5-display?page=<%= Number(page)+1 %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;</button>
-                    <button id="lastpage" class="btn" onclick="window.location.href='./t5-display?page=<%= totalpages %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;&gt;</button>
-                  </center>
-                </div>
-              
-            
-              </div>
-            </center>
-            
+              <%- include('./pagination') %>
         </div>
-      
     </div>
    
     <script src="/task-12/assets/js/jquery-1.10.2.js"></script>

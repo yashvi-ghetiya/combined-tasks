@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/task-7/css/pagination.css">
+</head>
+
+<body>
+  <% var disabled=null%>
+
+  <% if (page==1) { %>
+    <% disabled="disabled" %>
+  <% } %>
+
+  <% var orderby1="undefined" %>
+  <% if(orderby!="undefined"){ %>
+    <% orderby1=orderby %>
+  <%}%>
+
+  <% var ordertype1="undefined" %>
+  <% if(ordertype!="undefined"){ %>
+    <% ordertype1=ordertype %>
+  <%}%>
+
+  <% var month1=1,year1=2024 %>
+  <% if(year!="undefined" || month!="undefined") { %>
+    <% month1=month %>
+    <% year1=year %>
+    <% } %>
+  <div class="pagination" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
+    <button id="firstpage" class="btn" style="margin-right: 5px;" onclick="window.location.href='./t5-display?page=<%= 1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&lt;&lt;</button>
+    <button id="previouspage" class="btn" style="margin-right: 5px;" onclick="window.location.href='./t5-display?page=<%= Number(page)-1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'"<%= disabled %>>&lt;</button>
+    <div id="currentpage" class="btn" style="margin-right: 5px;">
+      <%= page %>
+    </div>
+    <% disabled=null %>
+    <% if (totalpages==page) { %>
+      <% disabled="disabled" %>
+    <% } %>
+    <button id="nextpage" class="btn" style="margin-right: 5px;"  onclick="window.location.href='./t5-display?page=<%= Number(page)+1 %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;</button>
+    <button id="lastpage" class="btn" style="margin-right: 5px;" onclick="window.location.href='./t5-display?page=<%= totalpages %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;&gt;</button>
+  </div>
+
+</body>
+
+</html>

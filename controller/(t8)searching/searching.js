@@ -32,7 +32,7 @@ const t8_searching = async (req, res) => {
 
             //Calculate Pages=============================================================================================
             if (result1 != undefined) {
-                console.log("object");
+          
                 if (result1.length < recordsPerPage) {
                     totalPages = 1;
                 }
@@ -113,8 +113,6 @@ const t8_searching = async (req, res) => {
             catch (err) {
                 res.redirect('/error');
             }
-            
-            console.log(result1.length);
             if (result1 == undefined || result1 == '' || result1.length==0) {
                 result1 = "No data Found";
             }

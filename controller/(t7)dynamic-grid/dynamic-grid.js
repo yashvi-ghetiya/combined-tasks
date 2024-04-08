@@ -57,7 +57,7 @@ const t7_display = async (req, res) => {
             }
 
             else if (result1 == false) {
-                console.log(false);
+
                 res.render('./(t7)dynamic-table/html/display', { firstname: result[0]['firstname'], lastname: result[0]['lastname'], error: "Opps Some Error in Fetching Data from Table!", query: '', database: '', ordertype: '' });
             }
 

@@ -22,40 +22,45 @@ function showTab(n) {
 
 function nextPrev(n) {
   var x = document.getElementsByClassName("tab");
+  if(currentTab==6)clear_form_validations();
   if (n == 1 && !validateForm()) return false;
   x[currentTab].style.display = "none";
+  clear_form_validations();
   currentTab = currentTab + n;
   if (currentTab >= x.length) {
-    if(submitype == 'update')
-    {
+    if (submitype == 'update') {
       updateData();
     }
-    else
-    {
+    else {
       submitData();
     }
-   
     return false;
   }
-
   showTab(currentTab);
 }
 
 function validateForm() {
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
-  z = x[currentTab].getElementsByTagName("textarea");
-  a = x[currentTab].getElementsByTagName("select");
+  let valid = true;
 
-  if(currentTab==0)
-  {
+  if (currentTab == 0) {
     valid = basic_details_validation();
   }
 
-  if(currentTab==1)
-  {
+  if (currentTab == 1) {
+    
     valid = education_details_validation();
+  }
+
+  if (currentTab == 2) {
+    valid = work_experience_details_validation();
+  }
+
+  if (currentTab == 5) {
+    valid = reference_validation();
+  }
+
+  if(currentTab==6){
+    valid=preference_validation();
   }
 
   if (valid) {
@@ -69,14 +74,13 @@ function fixStepIndicator(n) {
   for (i = 0; i < x.length; i++) {
     x[i].className = x[i].className.replace(" active", "");
   }
-
   x[n].className += " active";
 }
 
 function onloadfun() {
 
   //fetch-state
-  
+
   let url = "/dashboard/t11-fetch-state";
   fetch(url).then(response => response.json()).then(result => {
 
@@ -90,7 +94,7 @@ function onloadfun() {
     option.selected = true;
     state.appendChild(option);
 
-   
+
     Object.keys(result).forEach(key => {
 
       Object.keys(result[key]).forEach(key1 => {
@@ -115,12 +119,11 @@ function onloadfun() {
   option.selected = true;
   city.appendChild(option);
 
-  if(submitype == 'update')
-  {
+  if (submitype == 'update') {
     let id = window.location.href.split("/").pop();
     let url = "/dashboard/t11-fetch/" + id;
     fetch(url).then(response => response.json()).then(result => {
-        fillfields(result);
+      fillfields(result);
     })
   }
 }
@@ -144,13 +147,9 @@ let stateSeleted = () => {
 }
 
 let submitData = async () => {
-
   let url = "/dashboard/t11-post-data";
-
   let form = document.getElementById("regForm");
-
   const data = new URLSearchParams(new FormData(form));
-
   let res1 = await fetch(url, {
     method: "POST",
     body: data,
@@ -159,12 +158,9 @@ let submitData = async () => {
     }
   });
 
-  
   res1 = await res1.json();
-
   var alert = document.getElementById('alert');
   alert.style.display = 'block';
-
   return true;
 }
 
@@ -204,7 +200,7 @@ let loadData = async () => {
 
 
   fetch(url).then(response => response.json()).then(result => {
-   
+
     Object.keys(result).forEach(key => {
       Object.keys(result[key]).forEach(key1 => {
         var tr = document.createElement('tr');
@@ -236,9 +232,9 @@ let loadData = async () => {
   })
 }
 
-let updateData =async() => {
+let updateData = async () => {
   var id = window.location.href.split('/').pop();
-  let url = "/dashboard/t11-updatedata/"+id;
+  let url = "/dashboard/t11-updatedata/" + id;
 
   let form = document.getElementById("regForm");
 
@@ -260,4 +256,27 @@ let updateData =async() => {
   return true;
 }
 
+let clear_form_validations = () =>{
+
+  if(currentTab==0){
+    clear_basic_details_validations();
+  }
+
+  if(currentTab==1){
+    clear_educational_details_validations();
+  }
+
+  if(currentTab==2){
+    clear_work_experience_validations();
+  }
+
+  if(currentTab==5){
+    clear_ref_validations();
+  }
+
+
+  if(currentTab==6){
+    clear_preference_validations();
+  }
+}
 

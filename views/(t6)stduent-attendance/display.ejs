@@ -17,8 +17,7 @@
       <%- include('../header/header.ejs') %>
        
         <div id="page-wrapper">
-          <center>
-            <h1>YASHVI GHETIYA</h1>
+        
             <div class="div2">
               <% var arr=[1,2,12] %>
               <% var arrselect=['','',''] %>
@@ -53,14 +52,12 @@
             <br><br>
               <table id="customers">
                   <tr>
-                    <th><div style="display: flex;">Sid</th>
-                    <th><div style="display: flex;"><div style="margin: auto auto;">Firstname</div><div><i style="cursor: pointer;" onclick="window.location.href='./t6-display?orderby=fname&ordertype=ASC'" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" onclick="window.location.href='./t6-display?orderby=fname&ordertype=DESC'" class="bi bi-arrow-down-short"></i></div></div></th>
-                    <th><div style="display: flex;"><div style="margin: auto auto;">Lastname</div><div><i style="cursor: pointer;" onclick="window.location.href='./t6-display?orderby=lname&ordertype=ASC'" class="bi bi-arrow-up-short"></i><i style="cursor: pointer;" onclick="window.location.href='./t6-display?orderby=lname&ordertype=DESC'" class="bi bi-arrow-down-short"></i></div></div></th>
-                    <th><div style="display: flex;">Present Days</th>
-                    <th><div style="display: flex;">Precentage</th>
+                    <th>Sid</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Present Days</th>
+                    <th>Precentage</th>
                   </tr>
-                 
-          
                   <% result.forEach(row=>{%>
                     <tr>
                       <% for(let value in row){ %>
@@ -69,53 +66,9 @@
                     </tr>   
                   <% })%>
               </table>
-              <div style="display: flex;">
-                <div class="div1">
-                      <% var disabled=null%>
-              
-                      <% if (page==1) { %>
-                        <% disabled="disabled" %>
-                      <% } %>
-                    
-                      <% var orderby1="undefined" %>
-                      <% if(orderby!="undefined"){ %>
-                        <% orderby1=orderby %>
-                      <%}%>
-              
-                      <% var ordertype1="undefined" %>
-                      <% if(ordertype!="undefined"){ %>
-                        <% ordertype1=ordertype %>
-                      <%}%>
-              
-                      <% var month1=1,year1=2024 %>
-                      <% if(year!="undefined" || month!="undefined") { %>
-                        <% month1=month %>
-                        <% year1=year %>
-                        <% } %>
-                       <center>
-                    <button id="firstpage" class="btn" onclick="window.location.href='./t6-display?page=<%= 1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&lt;&lt;</a>
-                    <button id="previouspage" class="btn" onclick="window.location.href='./t6-display?page=<%= Number(page)-1 %>&orderby=<%= orderby1 %>&ordertype=<%= ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'"<%= disabled %>>&lt;</a>
-                    <div id="currentpage" class="btn" ><%= page %></div>
-                
-                  
-                    <% disabled=null %>
-                    <% if (totalpages==page) { %>
-                      <% disabled="disabled" %>
-                    <% } %>
-                  
-                    <button id="nextpage" class="btn" onclick="window.location.href='./t6-display?page=<%= Number(page)+1 %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;</button>
-                    <button id="lastpage" class="btn" onclick="window.location.href='./t6-display?page=<%= totalpages %>&orderby=<%= orderby1 %>&ordertype=<%=ordertype1 %>&months=<%= month1 %>&years=<%= year1 %>'" <%= disabled %>>&gt;&gt;</button>
-                  </center>
-                </div>
-              
-            
-              </div>
-            </center>
-            
+              <%- include('./pagination') %>
         </div>
-      
     </div>
-   
     <script src="/task-12/assets/js/jquery-1.10.2.js"></script>
     <script src="/task-12/assets/js/bootstrap.js"></script>
     <script src="/task-12/assets/js/jquery.metisMenu.js"></script>

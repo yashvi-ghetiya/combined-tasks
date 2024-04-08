@@ -1,5 +1,7 @@
 const { executeQueryInsert, executeQueryselect, executeQuery } = require('../../database_functions/executeQuery');
 const { updateData } = require('../../functions/updatefile');
+const { logger } = require('../../logger');
+
 
 const t11_insert = async (req, res) => {
     try {
@@ -94,10 +96,11 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result1 == "database") {
-        console.log("error in db connection");
+    logger.info('error in db connection');
     }
     else if (result1 == false) {
-        console.log("error in basic data insertion");
+        logger.info('error in basic details insertion');
+
     }
     else if (typeof Number(result1) == "number") {
         for (let i = 0; i < arr['edu'].length; i++) {
@@ -121,10 +124,10 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result2 == "database") {
-        console.log("error in db connection");
-    }
+        logger.info('error in db connection');
+        }
     else if (result2 == false) {
-        console.log("error in edu data insertion");
+        logger.info('error in edu data insertion');
     }
     else if (typeof Number(result2) == "number") {
         for (let i = 0; i < arr['company'].length; i++) {
@@ -148,10 +151,10 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result2 == "database") {
-        console.log("error in db connection");
+        logger.info('error in db connection');
     }
     else if (result2 == false) {
-        console.log("error in work data insertion");
+        logger.info('error in work data insertion');
     }
     else if (typeof Number(result2) == "number") {
         if (arr['php'] != undefined) {
@@ -209,10 +212,10 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result2 == "database") {
-        console.log("error in db connection");
+        logger.info('error in db connection');
     }
     else if (result2 == false) {
-        console.log("error in technology data insertion");
+        logger.info('error in technology data insertion');
     }
     else if (typeof Number(result2) == "number") {
         let arr1 = ['canRead', 'canWrite', 'canSpeak'];
@@ -292,10 +295,10 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result2 == "database") {
-        console.log("error in db connection");
+        logger.info('error in db connection');
     }
     else if (result2 == false) {
-        console.log("error in language data insertion");
+        logger.info('error in language data insertion');
     }
     else if (typeof Number(result2) == "number") {
         for (let i = 0; i < arr['refname'].length; i++) {
@@ -318,10 +321,10 @@ const t11_post_data = async function (req, res) {
     }
 
     if (result2 == "database") {
-        console.log("error in db connection");
+        logger.info('error in db connection');
     }
     else if (result2 == false) {
-        console.log("error in language data insertion");
+        logger.info('error in reference data insertion');
     }
     else if (typeof Number(result2) == "number") {
         try {
@@ -355,8 +358,7 @@ const t11_update_by_id = async function (req, res) {
 };
 
 const t11_update_data_by_id = async function (req, res) {
-    console.log("jkdhskdh");
-    updateData("combinedTask", req.body, req.params.id);
+       updateData("combinedTask", req.body, req.params.id);
 };
 
 const t11_fetch_data = async function (req, res) {

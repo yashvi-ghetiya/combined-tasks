@@ -35,7 +35,7 @@
   }
   
   button {
-    background-color: #04AA6D;
+    background-color:  #9933ff;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -70,5 +70,5 @@
   
   /* Mark the steps that are finished and valid: */
   .step.finish {
-    background-color: #04AA6D;
+    background-color:  #9933ff;
   }

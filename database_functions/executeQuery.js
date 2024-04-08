@@ -42,11 +42,9 @@ async function executeQueryInsert(db, query, values) {
         let res = new Promise((resolve, reject) => {
             con.query(query, values, (err, result) => {
                 if (err) {
-                    console.log(err);
                     reject(err);
                 }
                 else {
-                    console.log("success");
                     resolve(result.insertId);
                 }
             });
@@ -147,15 +145,13 @@ async function executeselectQuery(db, query1) {
     }
     else {
         let res = new Promise((resolve, reject) => {
-            console.log(query1)
+         
             con.query(query1, (err, result) => {
 
                 if (err) {
                     reject(err);
                 }
                 else {
-                    console.log(query1)
-                    console.log(result)
                     resolve(result);
                 }
             });

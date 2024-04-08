@@ -13,10 +13,11 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="/task-11/css/form.css" rel="stylesheet">
     <link href="/task-11/css/alert.css" rel="stylesheet">
-    <script src="/task-11/javascript/validations.js"></script>
+    <script src="/task-11/javascript/validations.js"/></script>
     <script src="/task-11/javascript/form.js"></script>
     <script src="/task-11/javascript/update.js"></script>
     <script src="/task-11/javascript/addelement.js"></script>
+    <script src="/task-11/javascript/clear_validations.js"></script>
     <script>
         function fun(node) {
             node.parentNode.remove();
@@ -36,8 +37,6 @@
                     <div class="tab">
                         <fieldset>
                             <legend>Basic Details</legend>
-
-
                             <label for="fname">First name:</label>
                             <input type="text" id="fname" name="fname" placeholder="abc" tabindex="1"></input>
 
@@ -122,7 +121,7 @@
                          
                             <br><br>
                             <label for="DateOfBirth">Date Of Birth:</label>
-                            <input name="dob" id="dob" type="text" placeholder="31-05-2001"></input>
+                            <input name="dob" id="dob" type="text" placeholder="2001-09-12"></input>
                             <label id="dobvalid" style="color: red;display: none;">Enter Date in Format (YYYY-MM-DD)</label>
                         </fieldset>
                     </div>
@@ -154,6 +153,16 @@
                                             <input type="text" name="eduper[]" placeholder="99.99"></input>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <label name="edupassingyearvalid[]" style="margin: auto 0;color: red;display: none;"> correct Format (YYYY)</label>
+                                        </td>
+                                        <td>
+                                            <label name="edupervalid[]" style="margin: auto 0;color: red;display: none;">correct Format (99.99)(Cannot be less than 33.00)</label>
+                                        </td>
+                                    </tr>
                                 </table>
                             </fieldset>
                             <br>
@@ -178,6 +187,16 @@
                                             <label for="percentage">Percentage:</label>
                                             <input type="text" name="eduper[]" placeholder="99.99"></input>
 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <label name="edupassingyearvalid[]" style="margin: auto 0;color: red;display: none;">Correct Format (YYYY)</label>
+                                        </td>
+                                        <td>
+                                            <label name="edupervalid[]" style="margin: auto 0;color: red;display: none;">correct Format (99.99)(Cannot be less than 33.00)</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -207,6 +226,16 @@
 
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <label name="edupassingyearvalid[]" style="margin: auto 0;color: red;display: none;">Correct Format (YYYY)</label>
+                                        </td>
+                                        <td>
+                                            <label name="edupervalid[]" style="margin: auto 0;color: red;display: none;">correct Format (99.99)(Cannot be less than 33.00)</label>
+                                        </td>
+                                    </tr>
                                 </table>
                             </fieldset>
                             <br>
@@ -234,6 +263,16 @@
 
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <label name="edupassingyearvalid[]" style="margin: auto 0;color: red;display: none;">correct Format (YYYY)</label>
+                                        </td>
+                                        <td>
+                                            <label name="edupervalid[]" style="margin: auto 0;color: red;display: none;">correct Format (99.99)(Cannot be less than 33.00)</label>
+                                        </td>
+                                    </tr>
                                 </table>
                             </fieldset>
                             <br>
@@ -253,7 +292,6 @@
                                         </td>
                                         <td>
                                             <label>Company Name:</label>
-
                                             <input type="text" name="company[]" placeholder="TCS"></input>
                                         </td>
                                         <td>
@@ -269,6 +307,13 @@
                                             <label>To:</label>
                                             <input type="text" name="workto[]" placeholder="2001-09-30"></input>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <label name="workfromvalid[]" style="margin: auto 0;color: red;display: none;">(YYYY-MM-DD)</label></td>
+                                        <td> <label name="worktovalid[]" style="margin: auto 0;color: red;display: none;">(YYYY-MM-DD)</label></td>
                                     </tr>
                                 </tbody>
 
@@ -439,7 +484,13 @@
                                             <label for="relation">Relation:</label>
                                             <input type="text" name="refrel[]" placeholder="friend"></input>
                                         </td>
-
+                                        <tr>
+                                            
+                                            <td></td>
+                                            <td></td>
+                                            <td> <label name="refcontactvalid[]" style="margin: auto 0;color: red;display: none;">Contact wrong format</label></td>
+                                            <td></td>
+                                        </tr>
                                     </tr>
                                 </tbody>
 
@@ -455,7 +506,7 @@
                                     <td>
                                         <label for="location">Prefered Location:</label>
                                         <select multiple name="preferedlocation" id="preferedlocation">
-                                            <option name="location" value="Ahmedabad">Ahmedabad</option>
+                                            <option name="location" selected value="Ahmedabad">Ahmedabad</option>
                                             <option name="location" value="Rajkot">Rajkot</option>
                                             <option name="location" value="Surat">Surat</option>
                                             <option name="location" value="Bhavnagar">Bhavnagar</option>
@@ -465,12 +516,13 @@
                                     <td>
                                         <label for="noticeperiod">Notice Period:</label>
                                         <input type="text" id="noticeperiod" name="noticeperiod"></input>
+                                        <label id="noticeperiodvalid" style="margin: auto 0;color: red;display: none;">Enter Integral values (Not less than 15 days)</label>
                                     </td>
                                     <td>
                                         <label for="relation">Department:</label>
                                         <select name="department" id="department">
                                             <option name="dept" value="Development">Development</option>
-                                            <option name="dept" value="Designing">Designing</option>
+                                            <option name="dept" selected value="Designing">Designing</option>
                                             <option name="dept" value="HR">HR</option>
                                             <option name="dept" value="Marketing">Marketing</option>
                                         </select>
@@ -483,8 +535,9 @@
 
                                     </td>
                                     <td>
-                                        <label for="expectedctc">Expected CTC:</label>
+                                        <label for="expectedctc">Expected CTC (IN LPA):</label>
                                         <input id="expectedCTC" type="text" name="expectedCTC">
+                                        <label id="expectedCTCvalid"style="margin: auto 0;color: red;display: none;" >Correct format 14.00</label>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -492,8 +545,9 @@
                                     <td></td>
                                     <td>
 
-                                        <label for="currentctc">Current CTC:</label>
+                                        <label for="currentctc">Current CTC  (IN LPA):</label>
                                         <input type="text" id="currentCTC" name="currentCTC">
+                                        <label id="currentCTCvalid" style="margin: auto 0;color: red;display: none;">Correct format 14.00</label>
 
                                     </td>
                                     <td></td>
@@ -532,6 +586,7 @@
         var currentTab = 0;
         var submitype = "<%=submitype%>";
         showTab(currentTab); 
+        
     </script>
     <script src="/task-12/assets/js/jquery-1.10.2.js"></script>
     <script src="/task-12/assets/js/bootstrap.js"></script>

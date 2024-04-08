@@ -8,19 +8,16 @@
 </head>
 <body>
     <div class="pagination" style="justify-content: center;display: flex;margin-top: 20px;margin-bottom:20px;">
-        <% var disabled='' %>
-        <% if(page==1) { %>
-            <% disabled='disabled' %>
-        <% } %>
-        <button id="firstpage" class="btn" onclick="window.location.href='/dashboard/t7-display/?page=<%= 1 %>&query=<%= query %>&database=<%= database %>'" style="margin-right: 5px;" <%= disabled %>>&lt;&lt;</button>
-        <button id="previouspage" class="btn" onclick="window.location.href='/dashboard/t7-display/?page=<%= Number(page)-1 %>&query=<%= query %>&database=<%= database %>'" style="margin-right: 5px;" <%= disabled %>>&lt;</button>
+       
+        <button id="firstpage" class="btn">&lt;&lt;</button>
+        <button id="previouspage" class="btn" >&lt;</button>
         <div id="currentpage" class="btn" style="margin-right: 5px;"><%= page %></div>
         <% disabled='' %>
         <% if(page==lastpage) { %>
             <% disabled='disabled' %>
         <% } %>
-        <button id="nextpage" class="btn" onclick="window.location.href='/dashboard/t7-display/?page=<%= Number(page)+1 %>&query=<%= query %>&database=<%= database %>'" style="margin-right: 5px;" <%= disabled %>>&gt;</button>
-        <button id="lastpage" class="btn" onclick="window.location.href='/dashboard/t7-display/?page=<%= lastpage %>&query=<%= query %>&database=<%= database %>'" style="margin-right: 5px;" <%= disabled %>>&gt;&gt;</button>
+        <button id="nextpage" class="btn">&gt;</button>
+        <button id="lastpage" class="btn">&gt;&gt;</button>
     </div>
     
 </body>
